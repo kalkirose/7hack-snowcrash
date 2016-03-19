@@ -1,0 +1,51 @@
+<div id="user-settings" class="highlighted" ng-class="{paired: isPaired}">
+
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <h3 class="panel-title">Device Information</h3>
+        </div>
+        <div class="panel-body">
+             <img ng-show="pairData.avatar" src="{{pairData.avatar}}" width="150" height="150" class="profile-img" />
+        </div>
+        <table class="table table-striped" ng-show="!isPaired">
+                <tr>
+                    <td>TV-IP:</td>
+                    <td>{{tvData.ip}}</td>
+                </tr>
+                <tr>
+                    <td>TV-ID:</td>
+                    <td>{{tvData.id}}</td>
+                </tr>
+                <tr>
+                    <td>PAIRCODE:</td>
+                    <td>{{tvData.pairCode}}</td>
+                </tr>
+        </table>
+        <table class="table table-striped" ng-show="isPaired">
+            <tr>
+                <td class="user-table-first">TV-IP:</td>
+                <td>{{tvData.ip}}</td>
+            </tr>
+            <tr>
+                <td>TV-ID:</td>
+                <td>{{tvData.id}}</td>
+            </tr>
+            <tr>
+                <td>PAIRCODE:</td>
+                <td>{{tvData.pairCode}}</td>
+            </tr>
+            <tr>
+                <td>Github:</td>
+                <td>{{pairData.github}}</td>
+            </tr>
+            <tr>
+                <td>M-IP::</td>
+                <td>{{pairData.ip}}</td>
+            </tr>
+            <tr>
+                <td>M-ADID:</td>
+                <td>{{pairData.uuid}}</td>
+            </tr>      
+        </table>
+    </div>
+</div>
