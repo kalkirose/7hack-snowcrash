@@ -5,12 +5,10 @@ var Pairing = {
         console.log('Pairing.pairDevice', req.body);
         if (req.body.pairCode) {
             //console.log('Pair Code', req.params.pairCode);
-
-            var pairDeviceData = {
-                'pairCode': req.body.pairCode,
-                'userAgent': req.headers['user-agent'],
-                'clientIp': req.connection.remoteAddress         
-            };
+            var pairDeviceData = req.body; 
+            
+            pairDeviceData.userAgent = req.headers['user-agent'];
+            pairDeviceData.clientIp = req.connection.remoteAddress;         
 
             console.log('Pair Devie Data', pairDeviceData);
 

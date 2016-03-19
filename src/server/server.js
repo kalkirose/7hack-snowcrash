@@ -45,6 +45,7 @@ router.get('/client-data', function(req, res){
         Client.getClientDataFromQuery(req.params, req, function(err, data) {
             console.log('Sending Data', data);
             res.json(data);
+            res.end();
         });
     });
 });

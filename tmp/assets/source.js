@@ -41708,8 +41708,7 @@ angular.module('7hack.userMenu', [])
                     $scope.pairData.ip = data.deviceData.clientIp;
                     $scope.pairData.uuid = data.deviceData.uuid;
                     $scope.pairData.github = data.deviceData.github; 
-
-                    $scope.$apply();   
+  
                 } else {
                     console.log('no Device Data');
                 }
