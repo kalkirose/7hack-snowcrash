@@ -163,7 +163,8 @@ app.use('/node_modules', express.static(basePath + 'node_modules'));
 
 app.use("/", router);
 
+var port = process.env.VCAP_APP_PORT || 1337;
 
-app.listen(1337, function(){
+app.listen(port, function(){
   console.log('listening on 127.0.0.1:1337');
 });
