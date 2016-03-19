@@ -2,7 +2,7 @@
   "name": "7hack-snowcrash",
   "version": "1.0.0",
   "description": "7hack server / client",
-  "main": "index.js",
+  "main": "src/server/server.js",
   "scripts": {
     "start": "node src/server/server.js"
   },
