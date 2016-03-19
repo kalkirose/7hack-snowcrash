@@ -59,7 +59,7 @@ module.exports = {
             base_dir + '/components/**/*.tpl.html'
         ],
         css: [
-            base_dir + '/**/*.css'
+            base_dir + '/components/**/*.css'
         ],
         index_html: [
             base_dir + '/index.html'
@@ -79,7 +79,7 @@ module.exports = {
             'src/client/lib/bootstrap/js/bootstrap.min.js'
         ],
         css: [
-            'src/client/lib/bootstrap/css/bootstrap.min.css'
+            'src/client/lib/bootstrap/css/bootstrap.css'
         ],
         assets: [
             'client/lib/jwplayer/jwplayer.flash.swf'
