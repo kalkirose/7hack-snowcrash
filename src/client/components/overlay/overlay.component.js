@@ -2,7 +2,7 @@ angular.module('7hack.overlay', ['7hack.interaction'])
 .directive('overlay', [ function() {
     return {
         templateUrl: 'overlay/overlay.tpl.html',
-        restrict: 'E',
+        restrict: 'EAC',
 
         controller: function($scope, InteractionService) {
 

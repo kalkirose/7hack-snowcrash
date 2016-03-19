@@ -41776,12 +41776,12 @@ try {
 }
 module.run(['$templateCache', function($templateCache) {
   $templateCache.put('overlay/overlay.tpl.html',
-    '<div id="menu-overlay" ng-show="showOverlay">\n' +
+    '<div id="menu-overlay" data-ng-show="showOverlay">\n' +
     '    <div class="container">\n' +
     '        <div class="row">\n' +
     '            <div class="col-xs-12 col-sm-8"></div>\n' +
     '            <div class="col-xs-12 col-sm-4">    \n' +
-    '                <user-menu></user-menu>\n' +
+    '                <div class="user-menu"></div>\n' +
     '            </div>\n' +
     '        </div>\n' +
     '    </div>\n' +
@@ -41895,6 +41895,7 @@ angular.module('7hack-snowcrash', [
 angular.element(document).ready(function () {
     angular.bootstrap(document, ['7hack-snowcrash']);
 });
+
 
 angular.module('7hack.alert', ['7hack.livePhone'])
 
@@ -42110,7 +42111,7 @@ angular.module('7hack.overlay', ['7hack.interaction'])
 .directive('overlay', [ function() {
     return {
         templateUrl: 'overlay/overlay.tpl.html',
-        restrict: 'E',
+        restrict: 'EAC',
 
         controller: function($scope, InteractionService) {
 
@@ -42216,7 +42217,7 @@ angular.module('7hack.userMenu', [])
 .directive('userMenu', ['UserMenuService', function(UserMenuService) {
     return {
         templateUrl: 'user-menu/user-menu.tpl.html',
-        restrict: 'E',
+        restrict: 'EAC',
 
         controller: function($scope) {
             $scope.isPaired = false;

@@ -17,3 +17,4 @@ angular.module('7hack-snowcrash', [
 angular.element(document).ready(function () {
     angular.bootstrap(document, ['7hack-snowcrash']);
 });
+
