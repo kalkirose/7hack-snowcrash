@@ -8,7 +8,7 @@ var Pairing = {
             var pairDeviceData = req.body; 
             
             pairDeviceData.userAgent = req.headers['user-agent'];
-            pairDeviceData.clientIp = req.connection.remoteAddress;         
+            pairDeviceData.clientIp = req.connection.remoteAddress;        
 
             console.log('Pair Devie Data', pairDeviceData);
 

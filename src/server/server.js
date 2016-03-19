@@ -12,6 +12,8 @@ var path = require('path');
 
 var Pairing = require('./components/pairing');
 var Client = require('./components/client');
+var State = require('./components/state');
+var Events = require('./components/events');
 
 var clientPath = '/../../tmp';
 var basePath = '/../../';
@@ -50,8 +52,34 @@ router.get('/client-data', function(req, res){
     });
 });
 
-console.log('Dir:', __dirname);
-console.log('Assets:', __dirname + assetPath);
+router.get('/state', function(req, res) {
+    State.getState(function(err, state) {
+        console.log('Sending State', state);
+        res.json(state);
+        res.end();
+    });
+});
+
+router.get('/events', function(req, res) {
+    Events.getEvents(req, function(err, events) {
+        res.json(events);
+        res.end();
+    }) 
+});
+
+router.put('/event', jsonParser, function(req, res) {
+    Events.putEvent(req, function(err, status) {
+        if (err) {
+            res.json(err);
+        } else {
+        res.json(status);
+        res.end();
+        }
+    })
+});
+
+// console.log('Dir:', __dirname);
+// console.log('Assets:', __dirname + assetPath);
 
 app.use(bodyParser.json())
 
