@@ -15,7 +15,7 @@ require('gulp-load-tasks')(config.gulp.dev.task_folder);
  * Development Single Run Build
  */
 gulp.task('dev-build', function(cb) {
-    plugins.runSequence(['dev-build-js',  'dev-copy-assets', 'dev-copy-css'], ['dev-inject-sources'], cb);
+    plugins.runSequence(['dev-build-js',  'dev-copy-assets', 'dev-copy-css'], ['dev-inject-sources', 'dev-inject-test'], cb);
 });
 
 /**

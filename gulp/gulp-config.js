@@ -63,6 +63,9 @@ module.exports = {
         ],
         index_html: [
             base_dir + '/index.html'
+        ],
+        test_html: [
+            base_dir + '/test.html'
         ]
     },
 
@@ -71,8 +74,8 @@ module.exports = {
      */
     vendor_files: {
         js: [
-            'client/lib/jwplayer/jwplayer.js',
-            'toaster/jquery.toaster.js',
+            'src/client/lib/jwplayer/jwplayer.js',
+            'src/client/lib/toaster/jquery.toaster.js',
             'node_modules/angular/angular.js',
             'node_modules/moment/moment.js',
             'node_modules/bootstrap/dist/js/bootstrap.min.js',

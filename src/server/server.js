@@ -14,16 +14,28 @@ var Pairing = require('./components/pairing');
 var Client = require('./components/client');
 var State = require('./components/state');
 var Events = require('./components/events');
+var Time = require('./components/time');
 
 var clientPath = '/../../tmp';
 var basePath = '/../../';
 var assetPath = clientPath + '/assets';
 
+var baseTime = (new Date).getTime();
+
 router.get('/', function(req, res){
+    Client.getClientData(req, function(err, clientInfo, clientObject){
+        res.setHeader('Content-Type', "application/vnd.hbbtv.xhtml+xml; charset=UTF-8");
+        res.setHeader('Set-Cookie', "clientId=" + clientObject.clientId);
+        res.sendFile(path.join(__dirname + clientPath + '/index.html'));
+        res.sendFile(path.join(__dirname + clientPath + '/index.html'));
+    });
+});
+
+router.get('/test', function(req, res){
     Client.getClientData(req, function(err, clientInfo, clientObject){
         // res.setHeader('Content-Type', "text/html");
         res.setHeader('Set-Cookie', "clientId=" + clientObject.clientId);
-        res.sendFile(path.join(__dirname + clientPath + '/index.html'));
+        res.sendFile(path.join(__dirname + clientPath + '/test.html'));
     });
 });
 
@@ -52,17 +64,25 @@ router.get('/client-data', function(req, res){
     });
 });
 
-router.get('/state', function(req, res) {
-    State.getState(function(err, state) {
+/** 
+ * Events / Event Queue
+ */
+router.put('/state', jsonParser, function(req, res) {
+    State.getState(req, function(err, state) {
         console.log('Sending State', state);
         res.json(state);
         res.end();
     });
+
 });
 
 router.get('/events', function(req, res) {
     Events.getEvents(req, function(err, events) {
-        res.json(events);
+        if (err) {
+            res.json(err);
+        } else {
+            res.json(events);
+        }
         res.end();
     }) 
 });
@@ -72,11 +92,61 @@ router.put('/event', jsonParser, function(req, res) {
         if (err) {
             res.json(err);
         } else {
-        res.json(status);
-        res.end();
+            res.json(status);
         }
+        res.end();
     })
 });
+
+
+/** 
+ * Timing
+ */
+
+router.get('/time', function(req, res) {
+    Time.getTime(function(err, currentTime) {
+        if (err) {
+            res.json(err);
+        } else {
+            res.json(currentTime)
+        }
+
+        res.end();
+    })
+});
+
+
+
+router.put('/time-offset', function(req, res) {
+    Time.setOffset(req, function(err, response) {
+        if (err) {
+            res.json(err);
+        } else {
+            res.json(response)
+        }
+
+        res.end();  
+    });
+});
+
+router.put('/time-reset', function(req, res) {
+    Time.resetBaseTime(function(err, response) {
+        if (err) {
+            res.json(err);
+        } else {
+            res.json(response)
+        }
+
+        res.end(); 
+    });
+});
+
+router.get('/jwplayer.flash.swf', function(req, res) {
+    res.setHeader('Content-Type', "application/x-shockwave-flash");
+    res.sendFile(path.join(__dirname + assetPath + '/jwplayer.flash.swf'));
+    // res.end();
+});
+
 
 // console.log('Dir:', __dirname);
 // console.log('Assets:', __dirname + assetPath);
@@ -89,6 +159,7 @@ app.use('/assets', express.static(__dirname + assetPath ));
 // app.use('/', express.static('../../tmp/assets'));
 // app.use('/static', express.static('static'));
 app.use('/node_modules', express.static(basePath + 'node_modules'));
+// app.use('/jwplayer.flash.swf', express.static(__dirname + assetPath));
 
 app.use("/", router);
 
