@@ -23,7 +23,7 @@ angular.module('7hack.livePhone', ['7hack.events', '7hack.interaction'])
             $scope.contactNumber = '';
             $scope.contactImage = '';
 
-            $scope.status.showPhone = $scope.ringing;
+            $scope.status.showPhone = false;
 
             EventService.registerReceiver({
                 notify: function(event) {
@@ -36,7 +36,7 @@ angular.module('7hack.livePhone', ['7hack.events', '7hack.interaction'])
                         $scope.contactNumber = data.contactNumber;
                         $scope.contactImage = data.contactImage;
 
-                        $scope.status.showPhone = $scope.ringing;
+                        $scope.status.showPhone = (data.callState == "1") ? true: false;
                     }
                 },
                 type: 'phone'

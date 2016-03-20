@@ -24,27 +24,27 @@ angular.module('7hack.events', [])
 
     service.preDefinedEvents = [
         {
-            "id": 1,
+            "eventId": 1,
             "type": "break_start",
-            "start": 55,
-            "end": 61,
+            "start": 50,
+            "end": 56,
             "devices": [
                 "tv",
                 "mobile"
             ]
         },
         {   
-            "id": 2,
+            "eventId": 2,
             "type": "break_end",
-            "start": 115,
-            "end": 121,
+            "start": 110,
+            "end": 116,
             "devices": [
                 "tv",
                 "mobile"
             ]
         },
         {
-            "id": 3,
+            "eventId": 3,
             "type": "tickets",
             "start": 133,
             "end": 140,
@@ -93,9 +93,9 @@ angular.module('7hack.events', [])
                         if (service.processedEvents.indexOf(event.eventId) < 0) {
                             service.processedEvents.push(event.eventId);
                             
-                            // console.log('Processed Events', service.processedEvents);
+                            console.log('Processed Events', service.processedEvents);
 
-                            // console.log('Firing Event', event);
+                            console.log('Firing Event', event);
 
                             service.broadcastArray.forEach(function(receiver){
                                 // console.log('receiverType', receiver.type);
@@ -106,7 +106,14 @@ angular.module('7hack.events', [])
                                 }
                             });
                         }
-                    }                    
+                    } else {
+                        console.log('Readding event');
+                        var pos = service.processedEvents.indexOf(event.eventId); 
+                        
+                        if(pos >= 0) {
+                            service.processedEvents.splice(pos, 1);
+                        } 
+                    }                 
                 });
             }
         });

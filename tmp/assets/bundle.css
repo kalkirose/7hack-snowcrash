@@ -8297,6 +8297,7 @@ button.close {
   overflow: none;
   color: white;
   font-size: 14px;
+  z-index: 10000;
 }
 
 .alert-pulse {

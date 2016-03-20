@@ -22,7 +22,7 @@ angular.module('7hack.eventTickets', ['7hack.events', '7hack.interaction'])
         controller: function($scope) {
             $scope.showEvent = false;
 
-            $scope.status.showEvent = $scope.showEvent;
+            $scope.status.showEvent = false;
             $scope.message = "UpcomingEvent";
 
             EventService.registerReceiver({

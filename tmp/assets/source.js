@@ -41933,7 +41933,8 @@ angular.module('7hack.alert', ['7hack.livePhone', '7hack.toiletBreak', '7hack.ev
         controller: function($scope) {
             $scope.status = {
                 showBreak: false,
-                showPhone: false
+                showPhone: false,
+                showTicket: false
             };
         }
     };
@@ -41963,7 +41964,7 @@ angular.module('7hack.eventTickets', ['7hack.events', '7hack.interaction'])
         controller: function($scope) {
             $scope.showEvent = false;
 
-            $scope.status.showEvent = $scope.showEvent;
+            $scope.status.showEvent = false;
             $scope.message = "UpcomingEvent";
 
             EventService.registerReceiver({
@@ -42044,27 +42045,27 @@ angular.module('7hack.events', [])
 
     service.preDefinedEvents = [
         {
-            "id": 1,
+            "eventId": 1,
             "type": "break_start",
-            "start": 55,
-            "end": 61,
+            "start": 50,
+            "end": 56,
             "devices": [
                 "tv",
                 "mobile"
             ]
         },
         {   
-            "id": 2,
+            "eventId": 2,
             "type": "break_end",
-            "start": 115,
-            "end": 121,
+            "start": 110,
+            "end": 116,
             "devices": [
                 "tv",
                 "mobile"
             ]
         },
         {
-            "id": 3,
+            "eventId": 3,
             "type": "tickets",
             "start": 133,
             "end": 140,
@@ -42113,9 +42114,9 @@ angular.module('7hack.events', [])
                         if (service.processedEvents.indexOf(event.eventId) < 0) {
                             service.processedEvents.push(event.eventId);
                             
-                            // console.log('Processed Events', service.processedEvents);
+                            console.log('Processed Events', service.processedEvents);
 
-                            // console.log('Firing Event', event);
+                            console.log('Firing Event', event);
 
                             service.broadcastArray.forEach(function(receiver){
                                 // console.log('receiverType', receiver.type);
@@ -42126,7 +42127,14 @@ angular.module('7hack.events', [])
                                 }
                             });
                         }
-                    }                    
+                    } else {
+                        console.log('Readding event');
+                        var pos = service.processedEvents.indexOf(event.eventId); 
+                        
+                        if(pos >= 0) {
+                            service.processedEvents.splice(pos, 1);
+                        } 
+                    }                 
                 });
             }
         });
@@ -42203,7 +42211,7 @@ angular.module('7hack.livePhone', ['7hack.events', '7hack.interaction'])
             $scope.contactNumber = '';
             $scope.contactImage = '';
 
-            $scope.status.showPhone = $scope.ringing;
+            $scope.status.showPhone = false;
 
             EventService.registerReceiver({
                 notify: function(event) {
@@ -42216,7 +42224,7 @@ angular.module('7hack.livePhone', ['7hack.events', '7hack.interaction'])
                         $scope.contactNumber = data.contactNumber;
                         $scope.contactImage = data.contactImage;
 
-                        $scope.status.showPhone = $scope.ringing;
+                        $scope.status.showPhone = (data.callState == "1") ? true: false;
                     }
                 },
                 type: 'phone'
@@ -42323,7 +42331,7 @@ angular.module('7hack.toiletBreak', ['7hack.events', '7hack.interaction'])
         },
 
         controller: function($scope) {
-            $scope.showBreak = true;
+            $scope.showBreak = false;
 
             $scope.status.showBreak = $scope.showBreak;
             $scope.message = "Upcoming Add Break";
@@ -42343,6 +42351,7 @@ angular.module('7hack.toiletBreak', ['7hack.events', '7hack.interaction'])
                 notify: function(event) {
                     //var data = event.data;
                     $scope.showBreak = true;
+                    $scope.status.showBreak = true;
                     $scope.message = "Show starting again soon";
 
                     //console.log('Notifiying View', data);

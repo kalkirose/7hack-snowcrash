@@ -10,7 +10,8 @@ angular.module('7hack.alert', ['7hack.livePhone', '7hack.toiletBreak', '7hack.ev
         controller: function($scope) {
             $scope.status = {
                 showBreak: false,
-                showPhone: false
+                showPhone: false,
+                showTicket: false
             };
         }
     };
