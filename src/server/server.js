@@ -16,6 +16,8 @@ var Client = require('./components/client');
 var State = require('./components/state');
 var Events = require('./components/events');
 var Time = require('./components/time');
+var Twitter = require('./components/twitter');
+var Sport = require('./components/sport');
 
 var clientPath = '/../../tmp';
 var basePath = '/../../';
@@ -119,6 +121,35 @@ router.put('/event', jsonParser, function(req, res) {
     })
 });
 
+router.get('/twitter-feed', function(req, res) {
+    Twitter.getFeed(function(err, feed) {
+        if (err) {
+            res.json(err);
+        } else {
+            res.json(feed);
+        }
+        res.end();
+    });
+});
+
+router.put('/sportradar', jsonParser, function(req, res) {
+    Sport.putSports(req, function(err, result) {
+        if (err) {
+            res.json(err);
+        } else {
+            res.json(result);
+        }
+        res.end();
+    });
+});
+
+router.get('/sportradar', function(req, res) {
+    console.log('Called sportradar');
+    var sportData = Sport.getSports();
+    console.log('Results', sportData);
+    res.json(sportData);
+    res.end();
+});
 
 /** 
  * Timing

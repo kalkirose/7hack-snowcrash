@@ -6,7 +6,7 @@ angular.module('7hack.interaction', [])
         Broadcast Example
         {
             notify: function(),
-            keys: [r81, g87, y69, b82]
+            keys: [r81, g87, y69, b82, 80p]
         }
     */
    

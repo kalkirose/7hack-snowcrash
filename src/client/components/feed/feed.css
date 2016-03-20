@@ -1,0 +1,112 @@
+#marquee {
+    overflow:hidden;
+    width:100%;
+    background-color: rgba(0,0,0,0.6);
+    height:48px;
+    color:white;
+
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 100000;
+}
+
+#tweet_container {
+    float:left;
+}
+
+#hash_tag {
+    position:absolute;
+    top:12px;
+    right:12px;
+    font-size:20px;
+}
+
+#twitter_tweet {
+    font-size:20px;
+    color:white;
+    margin:7px;
+    display:none;
+}
+
+.twitter_user_img {
+    display:block;
+    float:left;
+    height:32px;
+    width:32px;
+}
+
+.twitter_user_img img {
+    border-radius:50%;
+}
+
+.twitter_tweet_content {
+    float:left;
+    display:block;
+    margin-top:6px;
+    margin-left:10px;
+}
+
+.twitter_hashtag {
+    color:#1da1f2;
+    font-weight: bold;
+}
+
+.twitter_handle, .twitter_atsymbol {
+    color:orange;
+    font-weight: bold;
+}
+
+.twitter_time {
+    color:#FF6347;
+}
+
+.twitter_quotes {
+    font-family:serif;
+}
+
+.clear {
+    clear:both;
+}
+
+.team-img {
+    margin-left: 60px;
+    width: 40px;
+    height: 40px;
+}
+
+.team-name {
+    padding-left: 10px;
+}
+
+.team-imga {
+    margin-left: 10px;
+    width: 40px;
+    height: 40px;
+}
+
+.team-namea {
+    padding-left: 30px;
+}
+
+.sport-image {
+    margin-left: 20px;
+    width: 213px;
+    height: 30px;
+}
+
+.verses {
+    color: white;
+    font-size: 18px;
+    padding-left: 30px;
+}
+
+.sport-time {
+    padding-left: 40px;
+    color: white;
+    font-size: 18px;
+}
+
+.dropa {
+    padding-top: 3px;
+}

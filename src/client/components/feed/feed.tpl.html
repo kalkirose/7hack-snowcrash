@@ -1,0 +1,31 @@
+<div id="marquee" ng-show="sportEnabled">
+    <div ng-show="feedType === 'twitter'">
+        <div id="tweet_container" >
+            <div id="twitter_tweet">
+                <span class="twitter_user_img"><img width="32" height="32" src="{{currentTweet.tweet.img}}" /></span>
+                <span class="twitter_tweet_content" style="font-size: 12">
+                    <div class="twitter_info" style="float: left; padding-right: 5px">
+                        <span class="twitter_handle" style="display: block">{{currentTweet.tweet.handle}}</span> 
+                        <span class="twitter_time" style="display:block">{{currentTweet.tweet.time}}</span>
+                    </div> 
+                    <span class="twitter_message"></span>
+                </span>
+                <div class="clear"></div>
+            </div>
+        </div>
+        <div id="hash_tag">#7hackde</div>
+    </div>
+    <div class="dropa" ng-show="feedType === 'sportradar'">
+        <span><img class="sport-image" src="assets/sportsradar_white.png"></span>
+            <span class="team">
+                <img class="team-img" src="{{currentSport.team_image_1}}">
+                <span class="team-name">{{currentSport.team_name_1}}</span>
+            </span>
+            <span class="verses">vs</span>
+            <span class="team">
+                <span class="team-namea">{{currentSport.team_name_2}}</span>
+                <img class="team-imga" src="{{currentSport.team_image_2}}">
+            </span>
+            <span class="sport-time">Time: {{currentSport.date}} Today</span>
+    </div>
+</div>

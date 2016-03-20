@@ -63,7 +63,7 @@ angular.module('7hack.events', [])
                 deviceType: 'tv'
             }
         ).then(function (response) {
-            console.log(response.data);
+            // console.log(response.data);
 
             // Process imediate response events
             if (response.data.eventQueue && response.data.eventQueue.length) {
@@ -93,9 +93,9 @@ angular.module('7hack.events', [])
                         if (service.processedEvents.indexOf(event.eventId) < 0) {
                             service.processedEvents.push(event.eventId);
                             
-                            console.log('Processed Events', service.processedEvents);
+                            // console.log('Processed Events', service.processedEvents);
 
-                            console.log('Firing Event', event);
+                            // console.log('Firing Event', event);
 
                             service.broadcastArray.forEach(function(receiver){
                                 // console.log('receiverType', receiver.type);
@@ -107,7 +107,7 @@ angular.module('7hack.events', [])
                             });
                         }
                     } else {
-                        console.log('Readding event');
+                        // console.log('Readding event');
                         var pos = service.processedEvents.indexOf(event.eventId); 
                         
                         if(pos >= 0) {

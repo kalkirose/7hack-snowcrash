@@ -41770,6 +41770,48 @@ try {
   module = angular.module('7hack-snowcrash.templatesApp', []);
 }
 module.run(['$templateCache', function($templateCache) {
+  $templateCache.put('feed/feed.tpl.html',
+    '<div id="marquee" ng-show="sportEnabled">\n' +
+    '    <div ng-show="feedType === \'twitter\'">\n' +
+    '        <div id="tweet_container" >\n' +
+    '            <div id="twitter_tweet">\n' +
+    '                <span class="twitter_user_img"><img width="32" height="32" src="{{currentTweet.tweet.img}}" /></span>\n' +
+    '                <span class="twitter_tweet_content" style="font-size: 12">\n' +
+    '                    <div class="twitter_info" style="float: left; padding-right: 5px">\n' +
+    '                        <span class="twitter_handle" style="display: block">{{currentTweet.tweet.handle}}</span> \n' +
+    '                        <span class="twitter_time" style="display:block">{{currentTweet.tweet.time}}</span>\n' +
+    '                    </div> \n' +
+    '                    <span class="twitter_message"></span>\n' +
+    '                </span>\n' +
+    '                <div class="clear"></div>\n' +
+    '            </div>\n' +
+    '        </div>\n' +
+    '        <div id="hash_tag">#7hackde</div>\n' +
+    '    </div>\n' +
+    '    <div class="dropa" ng-show="feedType === \'sportradar\'">\n' +
+    '        <span><img class="sport-image" src="assets/sportsradar_white.png"></span>\n' +
+    '            <span class="team">\n' +
+    '                <img class="team-img" src="{{currentSport.team_image_1}}">\n' +
+    '                <span class="team-name">{{currentSport.team_name_1}}</span>\n' +
+    '            </span>\n' +
+    '            <span class="verses">vs</span>\n' +
+    '            <span class="team">\n' +
+    '                <span class="team-namea">{{currentSport.team_name_2}}</span>\n' +
+    '                <img class="team-imga" src="{{currentSport.team_image_2}}">\n' +
+    '            </span>\n' +
+    '            <span class="sport-time">Time: {{currentSport.date}} Today</span>\n' +
+    '    </div>\n' +
+    '</div>');
+}]);
+})();
+
+(function(module) {
+try {
+  module = angular.module('7hack-snowcrash.templatesApp');
+} catch (e) {
+  module = angular.module('7hack-snowcrash.templatesApp', []);
+}
+module.run(['$templateCache', function($templateCache) {
   $templateCache.put('live-phone/live-phone.tpl.html',
     '<span class="">\n' +
     '       <span ng-show="contactImage"><img style="width: 70px; height: 70px;" src="data:image/png;base64, {{contactImage}}" /></span>\n' +
@@ -41782,6 +41824,26 @@ module.run(['$templateCache', function($templateCache) {
     '       </span>\n' +
     '</span>\n' +
     '');
+}]);
+})();
+
+(function(module) {
+try {
+  module = angular.module('7hack-snowcrash.templatesApp');
+} catch (e) {
+  module = angular.module('7hack-snowcrash.templatesApp', []);
+}
+module.run(['$templateCache', function($templateCache) {
+  $templateCache.put('toilet-break/toilet-break.tpl.html',
+    '<span class="">\n' +
+    '       <span ng-show="type === \'dominos\'" class="toilet-image"><img src="assets/ic_dominos.png"></span>\n' +
+    '       <span ng-show="type === \'apple\'" class="toilet-image"><img src="assets/ic_apple.png"></span>\n' +
+    '       <span>{{message}}</span>\n' +
+    '       <span class="tiolet--separator">|</span>\n' +
+    '       <span class="tiolet--actions">\n' +
+    '           <span><img style="width: 30px; height: 30px;" src="assets/green_new.png"><span>Dismiss</span></span>\n' +
+    '       </span>\n' +
+    '</span>');
 }]);
 })();
 
@@ -41813,16 +41875,9 @@ try {
   module = angular.module('7hack-snowcrash.templatesApp', []);
 }
 module.run(['$templateCache', function($templateCache) {
-  $templateCache.put('toilet-break/toilet-break.tpl.html',
-    '<span class="">\n' +
-    '       <span ng-show="type === \'dominos\'" class="toilet-image"><img src="assets/ic_dominos.png"></span>\n' +
-    '       <span ng-show="type === \'apple\'" class="toilet-image"><img src="assets/ic_apple.png"></span>\n' +
-    '       <span>{{message}}</span>\n' +
-    '       <span class="tiolet--separator">|</span>\n' +
-    '       <span class="tiolet--actions">\n' +
-    '           <span><img style="width: 30px; height: 30px;" src="assets/green_new.png"><span>Dismiss</span></span>\n' +
-    '       </span>\n' +
-    '</span>');
+  $templateCache.put('video-player/video-player.tpl.html',
+    '<div class="" id="player"></div>\n' +
+    '');
 }]);
 })();
 
@@ -41888,19 +41943,6 @@ module.run(['$templateCache', function($templateCache) {
 }]);
 })();
 
-(function(module) {
-try {
-  module = angular.module('7hack-snowcrash.templatesApp');
-} catch (e) {
-  module = angular.module('7hack-snowcrash.templatesApp', []);
-}
-module.run(['$templateCache', function($templateCache) {
-  $templateCache.put('video-player/video-player.tpl.html',
-    '<div class="" id="player"></div>\n' +
-    '');
-}]);
-})();
-
 angular.module('7hack-snowcrash', [
     '7hack-snowcrash.templatesApp',
     '7hack.userMenu',
@@ -41910,7 +41952,8 @@ angular.module('7hack-snowcrash', [
     '7hack.livePhone',
     '7hack.videoPlayer',
     '7hack.alert',
-    '7hack.events'
+    '7hack.events',
+    '7hack.feed'
 ])
 
 .controller( 'AppCtrl', ['$window', '$http', 'EventService', function($window, $http, EventService) {
@@ -42085,7 +42128,7 @@ angular.module('7hack.events', [])
                 deviceType: 'tv'
             }
         ).then(function (response) {
-            console.log(response.data);
+            // console.log(response.data);
 
             // Process imediate response events
             if (response.data.eventQueue && response.data.eventQueue.length) {
@@ -42115,9 +42158,9 @@ angular.module('7hack.events', [])
                         if (service.processedEvents.indexOf(event.eventId) < 0) {
                             service.processedEvents.push(event.eventId);
                             
-                            console.log('Processed Events', service.processedEvents);
+                            // console.log('Processed Events', service.processedEvents);
 
-                            console.log('Firing Event', event);
+                            // console.log('Firing Event', event);
 
                             service.broadcastArray.forEach(function(receiver){
                                 // console.log('receiverType', receiver.type);
@@ -42129,7 +42172,7 @@ angular.module('7hack.events', [])
                             });
                         }
                     } else {
-                        console.log('Readding event');
+                        // console.log('Readding event');
                         var pos = service.processedEvents.indexOf(event.eventId); 
                         
                         if(pos >= 0) {
@@ -42151,6 +42194,243 @@ angular.module('7hack.events', [])
 
     return service;
 }]);
+angular.module('7hack.feed', [])
+
+.directive('feed', ['FeedService', 'InteractionService', '$http', '$timeout', function(FeedService, InteractionService, $http, $timeout) {
+    return {
+        templateUrl: 'feed/feed.tpl.html',
+        restrict: 'E',
+
+        controller: function($scope) {
+            this.twitterEnabled = FeedService.showFeed;
+            $scope.twitterEnabled = this.twitterEnabled; 
+            this.tweetHidden = true;
+            $scope.currentTweet = {};
+            $scope.feedType = 'sportradar';
+            $scope.sportEnabled = false;
+            
+            var self = this;
+
+            this.cronSports = function() {
+                 $timeout(function() {
+                    self.startSportsFeed();
+                }, 5000);
+            };
+
+            this.startSportsFeed = function() {
+                if ($scope.sportsData.length) {
+                   $scope.currentSport = $scope.sportsData.pop();
+                   $scope.feedType = 'sportradar';
+                   $scope.sportEnabled = true;
+                   self.cronSports();
+                } else {
+                    $scope.sportEnabled = false;
+                }
+            };
+
+            $scope.sportsData = [];
+
+            // console.log('Making Get');
+            $http({
+                method: 'GET',
+                url: '/sportradar'
+            }).then(function successCallback(response) {
+                if (response) {
+                    // console.log('Sport Data', response);
+                    $scope.sportsData = response.data;
+                }
+            });
+
+
+            var receiver = {
+                notify: function(key, data) {
+                    if (key === 80) {
+                        console.log('Toggleing Feed');
+                        self.toggleEnabled(!$scope.twitterEnabled);
+                        //$scope.$apply();
+                    }
+                },
+                keys: [80]
+            };
+
+            InteractionService.registerReceiver(receiver);
+
+            var receiver2 = {
+                notify: function(key, data) {
+                    if (key === 75) {
+                        console.log('Start Feed');
+                        self.startSportsFeed();
+                        //$scope.$apply();
+                    }
+                },
+                keys: [75]
+            };
+
+            InteractionService.registerReceiver(receiver2);
+
+            var receiver3 = {
+                notify: function(key, data) {
+                    if (key === 73) {
+                        if ($scope.sportsData.length) {
+                            $scope.feedType = 'sportradar';
+                        } else {
+                            $scope.feedType = 'twitter';    
+                        }
+                        //$scope.$apply();
+                    }
+
+                    if (key === 79) {
+                        $scope.feedType = 'twitter';
+                    }
+                },
+                keys: [73,79]
+            };
+
+            InteractionService.registerReceiver(receiver3);
+
+
+            this.makeTweet = function(tweet) {
+                if ( tweet ) {
+                    var fontSize = '20px';
+                    
+                    if (tweet.message.length >= 130) {
+                        fontSize = '16px';
+                    } else if (tweet.message.length >= 115) {
+                        fontSize = '17px';
+                    }
+
+                    $scope.currentTweet.fontSize = fontSize;
+
+                    var message = tweet.message.replace(/(#[^\s]+)/gi, function myFunction(x, group1){ 
+                        return '<span class="twitter_hashtag">' + group1 + '</span>';
+                    });
+
+                    message = '<span id="twitter-message-content">' + message.replace(/(@[^\s]+)/gi, function myFunction(x, group1){ 
+                        return '<span class="twitter_atsymbol">' + group1 + '</span>';
+                    }) + '</span>';
+
+                    if ($('#twitter-message-content').length) {
+                        $('#twitter-message-content').remove();
+                    }
+
+                    tweet.time = moment(tweet.time).fromNow();
+
+                    var messeageElement = angular.element(message);
+
+                    $('.twitter_message').append(messeageElement);
+
+                    $scope.currentTweet.message = message;
+                    $scope.currentTweet.tweet = tweet;
+                }
+            };
+
+            this.toggleEnabled = function(enabled) {
+                console.log('Toggleing Tweets: ', enabled);
+                self.twitterEnabled = enabled;
+                $scope.twitterEnabled = enabled;
+                self.cycleTweets();
+            };
+
+            FeedService.registerReceiver(this.toggleEnabled);
+
+            this.queueTwitterTimer = function() {
+                setTimeout(function() {
+                    self.cycleTweets();
+                }, 3000);
+            };
+
+            this.showTweet = function() {
+                console.log('show tweet');
+                self.tweetHidden = true;
+                $('#twitter_tweet').css('opacity', 0).slideDown('slow').animate(
+                    { opacity: 1 }, { queue: false, duration: 'slow' }
+                );
+                self.queueTwitterTimer();
+            };
+
+            this.hideTweet = function() {
+                console.log('hide tweet');
+                self.tweetHidden = false;
+                $('#twitter_tweet').css('opacity', 1).slideDown('slow').animate(
+                    { opacity: 0 }, { queue: false, duration: 'slow' }
+                );
+                self.queueTwitterTimer();
+            };
+
+            this.cycleTweets = function() {
+                console.log('Cycling Tweets');
+
+                FeedService.getNextTweet().then(function(tweet) {
+                    self.makeTweet(tweet);
+                    if (self.twitterEnabled) {
+                        if (self.tweetHidden) {
+                            self.showTweet();
+                        } else {
+                            self.hideTweet();
+                        }
+                    }
+                });
+            };
+
+            //Remove after testing
+            this.cycleTweets();
+        }
+    };
+}])
+
+.service('FeedService', ['$http', '$q', function($http, $q) {
+    var service = {};
+
+    service.showFeed = false;
+
+    service.broadcastArray = [];
+    service.tweetArray = [];
+
+    service.registerReceiver = function(receiver) {
+        service.broadcastArray.push(receiver);        
+    };
+
+    service.toggleFeed = function() {
+        service.showFeed = !service.showFeed;
+
+        console.log('New Show Feed: ', service.showFeed);
+
+        service.broadcastArray.forEach(function(receiver){
+            receiver(service.showFeed);
+        });
+    };
+
+    service.getNextTweet = function() {
+        if (service.tweetArray.length) {
+            var deferred = $q.defer();
+            deferred.resolve(service.tweetArray.pop());
+            return deferred.promise;
+        } else {
+            return service.getNewFeed();
+        }
+    };
+
+    service.getNewFeed = function() {
+        console.log('Get Feed');
+        // Simple GET request example:
+        return $http({
+            method: 'GET',
+            url: '/twitter-feed'
+        }).then(function successCallback(response) {
+            console.log(response.data);
+            service.tweetArray = response.data;
+            return service.tweetArray.pop();
+        }, function errorCallback(response) {
+            console.log('Error ', response);
+            // called asynchronously if an error occurs
+            // or server returns response with an error status.
+        });
+    };
+
+
+
+    return service;
+}]);
 angular.module('7hack.interaction', [])
 .service('InteractionService', ['$window', function($window) {
     var service = {};
@@ -42159,7 +42439,7 @@ angular.module('7hack.interaction', [])
         Broadcast Example
         {
             notify: function(),
-            keys: [r81, g87, y69, b82]
+            keys: [r81, g87, y69, b82, 80p]
         }
     */
    
