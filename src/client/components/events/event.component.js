@@ -46,7 +46,7 @@ angular.module('7hack.events', [])
         {
             "id": 3,
             "type": "tickets",
-            "start": 13,
+            "start": 133,
             "end": 140,
             "devices": [
                 "tv"

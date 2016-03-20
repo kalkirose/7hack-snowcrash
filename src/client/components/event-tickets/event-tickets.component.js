@@ -38,6 +38,7 @@ angular.module('7hack.eventTickets', ['7hack.events', '7hack.interaction'])
 
             InteractionService.registerReceiver({
                 notify: function(keyCode, data) {
+                    if ($scope.showEvent === true) {
                     // Enter/Red Button Pressed, launch ticket event
                         $scope.showEvent = false;
                         $scope.status.showEvent = false;
@@ -53,6 +54,7 @@ angular.module('7hack.eventTickets', ['7hack.events', '7hack.interaction'])
                                 }
                             }
                         );
+                    }
                 },
                 keys: [
                     81

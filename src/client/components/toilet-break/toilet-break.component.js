@@ -20,7 +20,7 @@ angular.module('7hack.toiletBreak', ['7hack.events', '7hack.interaction'])
         },
 
         controller: function($scope) {
-            $scope.showBreak = false;
+            $scope.showBreak = true;
 
             $scope.status.showBreak = $scope.showBreak;
             $scope.message = "Upcoming Add Break";

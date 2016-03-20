@@ -29,13 +29,15 @@ angular.module('7hack.livePhone', ['7hack.events', '7hack.interaction'])
                 notify: function(event) {
                     console.log('Event Received');
                     var data = event.data;
+                    if (data.callState && data.callState === "1" || $scope.ringing === true ){
 
-                    $scope.ringing = (data.callState == "1") ? true: false;
-                    $scope.contactName = data.contactName;
-                    $scope.contactNumber = data.contactNumber;
-                    $scope.contactImage = data.contactImage;
+                        $scope.ringing = (data.callState == "1") ? true: false;
+                        $scope.contactName = data.contactName;
+                        $scope.contactNumber = data.contactNumber;
+                        $scope.contactImage = data.contactImage;
 
-                    $scope.status.showPhone = true;
+                        $scope.status.showPhone = $scope.ringing;
+                    }
                 },
                 type: 'phone'
             });

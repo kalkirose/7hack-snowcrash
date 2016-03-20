@@ -41756,8 +41756,8 @@ module.run(['$templateCache', function($templateCache) {
     '       <span>{{message}}</span>\n' +
     '       <span class="event--separator">|</span>\n' +
     '       <span class="event--actions">\n' +
-    '           <span><img style="width: 30px; height: 30px;" src="assets/red-dot.png"> Launch in App</span>\n' +
-    '           <span><img style="width: 30px; height: 30px;" src="assets/green-dot.png"> Dismiss</span>\n' +
+    '           <span><img style="width: 23px; height: 23px;" src="assets/red_new.png">Launch in App</span>\n' +
+    '           <span><img style="width: 30px; height: 30px;" src="assets/green_new.png">Dismiss</span>\n' +
     '       </span>\n' +
     '</span>');
 }]);
@@ -41772,13 +41772,13 @@ try {
 module.run(['$templateCache', function($templateCache) {
   $templateCache.put('live-phone/live-phone.tpl.html',
     '<span class="">\n' +
-    '       <span ng-show="contactImage"><img style="width: 50px; height: 50px;" src="data:image/png;base64, {{contactImage}}" /></span>\n' +
+    '       <span ng-show="contactImage"><img style="width: 70px; height: 70px;" src="data:image/png;base64, {{contactImage}}" /></span>\n' +
     '       <span class="phone-image"><img  style="width: 30px; height: 30px;" src="assets/phone.png"></span>\n' +
     '       <span>{{contactName}}</span>\n' +
     '       <span class="live-phone--separator">|</span>\n' +
     '       <span class="live-phone--actions">\n' +
-    '           <span><img style="width: 30px; height: 30px;" src="assets/red-dot.png"> Answer</span>\n' +
-    '           <span><img style="width: 30px; height: 30px;" src="assets/green-dot.png"> Silence</span>\n' +
+    '           <span><img style="width: 23px; height: 23px;" src="assets/red_new.png"> Answer</span>\n' +
+    '           <span><img style="width: 30px; height: 30px;" src="assets/green_new.png"> Silence</span>\n' +
     '       </span>\n' +
     '</span>\n' +
     '');
@@ -41815,11 +41815,11 @@ try {
 module.run(['$templateCache', function($templateCache) {
   $templateCache.put('toilet-break/toilet-break.tpl.html',
     '<span class="">\n' +
-    '       <span class="toilet-image"><img  style="width: 30px; height: 30px;" src="assets/toilet.gif"></span>\n' +
+    '       <span class="toilet-image"><img src="assets/ic_dominos.png"></span>\n' +
     '       <span>{{message}}</span>\n' +
     '       <span class="tiolet--separator">|</span>\n' +
     '       <span class="tiolet--actions">\n' +
-    '           <span><img style="width: 30px; height: 30px;" src="assets/green-dot.png"> Dismiss</span>\n' +
+    '           <span><img style="width: 30px; height: 30px;" src="assets/green_new.png"> Dismiss</span>\n' +
     '       </span>\n' +
     '</span>');
 }]);
@@ -41979,6 +41979,7 @@ angular.module('7hack.eventTickets', ['7hack.events', '7hack.interaction'])
 
             InteractionService.registerReceiver({
                 notify: function(keyCode, data) {
+                    if ($scope.showEvent === true) {
                     // Enter/Red Button Pressed, launch ticket event
                         $scope.showEvent = false;
                         $scope.status.showEvent = false;
@@ -41994,6 +41995,7 @@ angular.module('7hack.eventTickets', ['7hack.events', '7hack.interaction'])
                                 }
                             }
                         );
+                    }
                 },
                 keys: [
                     81
@@ -42064,7 +42066,7 @@ angular.module('7hack.events', [])
         {
             "id": 3,
             "type": "tickets",
-            "start": 13,
+            "start": 133,
             "end": 140,
             "devices": [
                 "tv"
@@ -42207,13 +42209,15 @@ angular.module('7hack.livePhone', ['7hack.events', '7hack.interaction'])
                 notify: function(event) {
                     console.log('Event Received');
                     var data = event.data;
+                    if (data.callState && data.callState === "1" || $scope.ringing === true ){
 
-                    $scope.ringing = (data.callState == "1") ? true: false;
-                    $scope.contactName = data.contactName;
-                    $scope.contactNumber = data.contactNumber;
-                    $scope.contactImage = data.contactImage;
+                        $scope.ringing = (data.callState == "1") ? true: false;
+                        $scope.contactName = data.contactName;
+                        $scope.contactNumber = data.contactNumber;
+                        $scope.contactImage = data.contactImage;
 
-                    $scope.status.showPhone = true;
+                        $scope.status.showPhone = $scope.ringing;
+                    }
                 },
                 type: 'phone'
             });
@@ -42319,7 +42323,7 @@ angular.module('7hack.toiletBreak', ['7hack.events', '7hack.interaction'])
         },
 
         controller: function($scope) {
-            $scope.showBreak = false;
+            $scope.showBreak = true;
 
             $scope.status.showBreak = $scope.showBreak;
             $scope.message = "Upcoming Add Break";

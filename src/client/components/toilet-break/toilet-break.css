@@ -1,8 +1,12 @@
 .toilet-image {
     padding-left: 10px;
     padding-right: 10px;
-    width: 30px; 
-    height: 30px;
+}
+
+.toilet-image img{
+
+    width: 60px; 
+    height: 60px;
 }
 
 .tiolet--separator {
@@ -10,4 +14,9 @@
 }
 
 .tiolet--actions {
+}
+
+.sponsor-logo {
+    width: 50px;
+    height: 50px;
 }

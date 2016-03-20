@@ -8336,7 +8336,9 @@ button.close {
   padding: 0 20px;
 }
 
-
+.event--actions span {
+  padding: 0 5px;
+}
 .hbbtv-viewport {
   width: 1280px;
   height: 720px;
@@ -8355,7 +8357,9 @@ button.close {
   padding: 0 20px;
 }
 
-
+.live-phone--actions span {
+  padding: 0 5px;
+}
 #menu-overlay {
   padding-top: 100px;
   position: absolute;
@@ -8367,8 +8371,11 @@ button.close {
 .toilet-image {
   padding-left: 10px;
   padding-right: 10px;
-  width: 30px;
-  height: 30px;
+}
+
+.toilet-image img {
+  width: 60px;
+  height: 60px;
 }
 
 .tiolet--separator {
@@ -8376,6 +8383,11 @@ button.close {
 }
 
 
+
+.sponsor-logo {
+  width: 50px;
+  height: 50px;
+}
 #user-settings .profile-img {
   border-radius: 50%;
 }
