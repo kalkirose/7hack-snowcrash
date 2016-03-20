@@ -29,6 +29,7 @@ angular.module('7hack.feed', [])
                    self.cronSports();
                 } else {
                     $scope.sportEnabled = false;
+                    $scope.feedType = 'twitter';
                 }
             };
 
@@ -40,7 +41,7 @@ angular.module('7hack.feed', [])
                 url: '/sportradar'
             }).then(function successCallback(response) {
                 if (response) {
-                    // console.log('Sport Data', response);
+                    console.log('Sport Data', response);
                     $scope.sportsData = response.data;
                 }
             });

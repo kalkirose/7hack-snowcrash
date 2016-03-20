@@ -8348,39 +8348,6 @@ button.close {
 .event--actions img {
   /*padding: 0 5px;*/
 }
-.hbbtv-viewport {
-  width: 1280px;
-  height: 720px;
-  color: transparent;
-  position: relative;
-  overflow: hidden;
-  font-size: 50px;
-  color: white;
-}
-.phone-image {
-  padding-left: 10px;
-  padding-right: 10px;
-}
-
-.live-phone--separator {
-  padding: 0 20px;
-}
-
-.live-phone--actions span {
-  padding: 0 5px;
-}
-
-.live-phone--actions img {
-  /*padding: 0 5px;*/
-}
-#menu-overlay {
-  padding-top: 100px;
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  z-index: 100;
-  background-color: rgba(0,0,0,0.8);
-}
 #marquee {
   overflow: hidden;
   width: 100%;
@@ -8492,6 +8459,39 @@ button.close {
 
 .dropa {
   padding-top: 3px;
+}
+.hbbtv-viewport {
+  width: 1280px;
+  height: 720px;
+  color: transparent;
+  position: relative;
+  overflow: hidden;
+  font-size: 50px;
+  color: white;
+}
+.phone-image {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.live-phone--separator {
+  padding: 0 20px;
+}
+
+.live-phone--actions span {
+  padding: 0 5px;
+}
+
+.live-phone--actions img {
+  /*padding: 0 5px;*/
+}
+#menu-overlay {
+  padding-top: 100px;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 100;
+  background-color: rgba(0,0,0,0.8);
 }
 .toilet-image {
   padding-left: 10px;

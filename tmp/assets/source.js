@@ -41771,7 +41771,7 @@ try {
 }
 module.run(['$templateCache', function($templateCache) {
   $templateCache.put('feed/feed.tpl.html',
-    '<div id="marquee" ng-show="sportEnabled">\n' +
+    '<div id="marquee" ng-show="sportEnabled || feedType === \'twitter\'">\n' +
     '    <div ng-show="feedType === \'twitter\'">\n' +
     '        <div id="tweet_container" >\n' +
     '            <div id="twitter_tweet">\n' +
@@ -41834,26 +41834,6 @@ try {
   module = angular.module('7hack-snowcrash.templatesApp', []);
 }
 module.run(['$templateCache', function($templateCache) {
-  $templateCache.put('toilet-break/toilet-break.tpl.html',
-    '<span class="">\n' +
-    '       <span ng-show="type === \'dominos\'" class="toilet-image"><img src="assets/ic_dominos.png"></span>\n' +
-    '       <span ng-show="type === \'apple\'" class="toilet-image"><img src="assets/ic_apple.png"></span>\n' +
-    '       <span>{{message}}</span>\n' +
-    '       <span class="tiolet--separator">|</span>\n' +
-    '       <span class="tiolet--actions">\n' +
-    '           <span><img style="width: 30px; height: 30px;" src="assets/green_new.png"><span>Dismiss</span></span>\n' +
-    '       </span>\n' +
-    '</span>');
-}]);
-})();
-
-(function(module) {
-try {
-  module = angular.module('7hack-snowcrash.templatesApp');
-} catch (e) {
-  module = angular.module('7hack-snowcrash.templatesApp', []);
-}
-module.run(['$templateCache', function($templateCache) {
   $templateCache.put('overlay/overlay.tpl.html',
     '<div id="menu-overlay" ng-show="showOverlay">\n' +
     '    <div class="container">\n' +
@@ -41875,9 +41855,16 @@ try {
   module = angular.module('7hack-snowcrash.templatesApp', []);
 }
 module.run(['$templateCache', function($templateCache) {
-  $templateCache.put('video-player/video-player.tpl.html',
-    '<div class="" id="player"></div>\n' +
-    '');
+  $templateCache.put('toilet-break/toilet-break.tpl.html',
+    '<span class="">\n' +
+    '       <span ng-show="type === \'dominos\'" class="toilet-image"><img src="assets/ic_dominos.png"></span>\n' +
+    '       <span ng-show="type === \'apple\'" class="toilet-image"><img src="assets/ic_apple.png"></span>\n' +
+    '       <span>{{message}}</span>\n' +
+    '       <span class="tiolet--separator">|</span>\n' +
+    '       <span class="tiolet--actions">\n' +
+    '           <span><img style="width: 30px; height: 30px;" src="assets/green_new.png"><span>Dismiss</span></span>\n' +
+    '       </span>\n' +
+    '</span>');
 }]);
 })();
 
@@ -41940,6 +41927,19 @@ module.run(['$templateCache', function($templateCache) {
     '        </table>\n' +
     '    </div>\n' +
     '</div>');
+}]);
+})();
+
+(function(module) {
+try {
+  module = angular.module('7hack-snowcrash.templatesApp');
+} catch (e) {
+  module = angular.module('7hack-snowcrash.templatesApp', []);
+}
+module.run(['$templateCache', function($templateCache) {
+  $templateCache.put('video-player/video-player.tpl.html',
+    '<div class="" id="player"></div>\n' +
+    '');
 }]);
 })();
 
@@ -42225,6 +42225,7 @@ angular.module('7hack.feed', [])
                    self.cronSports();
                 } else {
                     $scope.sportEnabled = false;
+                    $scope.feedType = 'twitter';
                 }
             };
 
@@ -42236,7 +42237,7 @@ angular.module('7hack.feed', [])
                 url: '/sportradar'
             }).then(function successCallback(response) {
                 if (response) {
-                    // console.log('Sport Data', response);
+                    console.log('Sport Data', response);
                     $scope.sportsData = response.data;
                 }
             });
