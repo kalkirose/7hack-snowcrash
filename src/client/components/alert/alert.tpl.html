@@ -1,5 +1,7 @@
-<div class="alert-container"  ng-show="status.show">
+<div class="alert-container"  ng-show="status.showBreak || status.showPhone || status.showEvent">
    <div class="alert-pulse pulse" >
-       <live-phone status="status"></live-phone>
+       <live-phone status="status" ng-show="status.showPhone"></live-phone>
+       <toilet-break status="status" ng-show="status.showBreak"></toilet-break>
+       <event-tickets status="status" ng-show="status.showEvent"></event-tickets>
    </div>
 </div>

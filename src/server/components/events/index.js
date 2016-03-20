@@ -13,15 +13,38 @@
 //];
 
 var Events = {
-    eventQueue: [],
+    eventQueue: [
+        // {
+        //     eventId: 222,
+        //     type: 'phone',
+        //     devices: ['tv'],
+        //     status: 'pending', // pending / complete / ignored / received
+        //     data: {
+        //         callState: "1"
+        //     }
+        // },
+        // {
+        //     eventId: "333",
+        //     type: "tickets",
+        //     devices: ["phone"],
+        //     status: "pending",
+        //     data: {
+        //         url: "http://7hack.de/"
+        //     }
+        // }
+    ],
     getEvents: function(req, callback) {
         if (req.body.deviceType) {
             var deviceType = req.body.deviceType;
-            console.log('Device Type');
+            console.log('Device Type', deviceType);
             var eventArray = [];
+            
             Events.eventQueue.forEach(function(event) {
-                if (event.devices.indexOf(deviceType) >=0) {
+                console.log('Event to put into queue', event);
+                if (event.devices.indexOf(deviceType) >=0 ) {
                     eventArray.push(event);
+                    var pos = Events.eventQueue.indexOf(event);
+                    Events.eventQueue.splice(pos, 1);
                     console.log('Adding Event')
                 }
             });

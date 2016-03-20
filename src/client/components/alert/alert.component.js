@@ -1,4 +1,4 @@
-angular.module('7hack.alert', ['7hack.livePhone'])
+angular.module('7hack.alert', ['7hack.livePhone', '7hack.toiletBreak', '7hack.eventTickets'])
 
 .directive('alert', 
   [ 
@@ -9,7 +9,8 @@ angular.module('7hack.alert', ['7hack.livePhone'])
 
         controller: function($scope) {
             $scope.status = {
-                show: false
+                showBreak: false,
+                showPhone: false
             };
         }
     };

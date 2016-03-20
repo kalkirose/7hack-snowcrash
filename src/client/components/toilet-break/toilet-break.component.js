@@ -10,7 +10,7 @@
 angular.module('7hack.toiletBreak', ['7hack.events', '7hack.interaction'])
 
 .directive('toiletBreak', 
-  [ 'EventService',
+  [ 'EventService', 'InteractionService',
   function(EventService, InteractionService) {  
     return {
         templateUrl: 'toilet-break/toilet-break.tpl.html',
@@ -20,59 +20,44 @@ angular.module('7hack.toiletBreak', ['7hack.events', '7hack.interaction'])
         },
 
         controller: function($scope) {
-            $scope.ringing = true;
-            $scope.contactName = 'test';
-            $scope.contactNumber = '';
-            $scope.contactImage = '';
+            $scope.showBreak = false;
 
-            $scope.status.show = $scope.ringing;
+            $scope.status.showBreak = $scope.showBreak;
+            $scope.message = "Upcoming Add Break";
 
             EventService.registerReceiver({
                 notify: function(event) {
-                    var data = event.data;
-                    console.log('Notifiying View', data);
-                    $scope.ringing = (data.callState == "1") ? true: false;
-                    $scope.contactName = data.contactName;
-                    $scope.contactNumber = data.contactNumber;
-                    $scope.contactImage = data.contactImage;
+                    //var data = event.data;
+                    $scope.showBreak = true;
+                    $scope.status.showBreak = true;
+                    $scope.message = "Upcoming Add Break";
+                    // console.log('Notifiying View', event);
                 },
-                messageType: 'phone'
+                type: 'break_start'
+            });
+
+            EventService.registerReceiver({
+                notify: function(event) {
+                    //var data = event.data;
+                    $scope.showBreak = true;
+                    $scope.message = "Show starting again soon";
+
+                    //console.log('Notifiying View', data);
+                },
+                type: 'break_end'
             });
 
             InteractionService.registerReceiver({
                 notify: function(keyCode, data) {
                     // Enter/Red Button Pressed, answer call
-                    if (keyCode === 113 || keycode === 13){
-
-                        $scope.ringing  = false;
-                        $scope.status.show = false;
-                    }
-
-                    // Control/Green Button pressed, hangup
-                    if (keyCode === 1 || keyCode === 2) {
-                        EventService.pushEvent(
-                            {
-                                eventId: 123,
-                                devices: ['phone'],
-                                status: 'pending', // pending / complete / ignored / received
-                                data: {
-                                    action: 'answer'
-                                }
-                            }
-                        );
-
-                        $scope.ringing  = false;
-                        $scope.status.show = false;
-                    }
+                        $scope.showBreak = false;
+                        $scope.status.showBreak = false;
                 },
                 keys: [
-                    113,
-                    13
+                    87
                 ]
 
-            });
-
-            
+            });            
         }
     };
 }]);

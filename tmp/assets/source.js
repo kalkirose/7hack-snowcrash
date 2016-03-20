@@ -41732,9 +41732,11 @@ try {
 }
 module.run(['$templateCache', function($templateCache) {
   $templateCache.put('alert/alert.tpl.html',
-    '<div class="alert-container"  ng-show="status.show">\n' +
+    '<div class="alert-container"  ng-show="status.showBreak || status.showPhone || status.showEvent">\n' +
     '   <div class="alert-pulse pulse" >\n' +
-    '       <live-phone status="status"></live-phone>\n' +
+    '       <live-phone status="status" ng-show="status.showPhone"></live-phone>\n' +
+    '       <toilet-break status="status" ng-show="status.showBreak"></toilet-break>\n' +
+    '       <event-tickets status="status" ng-show="status.showEvent"></event-tickets>\n' +
     '   </div>\n' +
     '</div>\n' +
     '');
@@ -41748,23 +41750,38 @@ try {
   module = angular.module('7hack-snowcrash.templatesApp', []);
 }
 module.run(['$templateCache', function($templateCache) {
+  $templateCache.put('event-tickets/event-tickets.tpl.html',
+    '<span class="">\n' +
+    '       <span class="event-image"><img  style="width: 30px; height: 30px;" src="assets/toilet.gif"></span>\n' +
+    '       <span>{{message}}</span>\n' +
+    '       <span class="event--separator">|</span>\n' +
+    '       <span class="event--actions">\n' +
+    '           <span><img style="width: 30px; height: 30px;" src="assets/red-dot.png"> Launch in App</span>\n' +
+    '           <span><img style="width: 30px; height: 30px;" src="assets/green-dot.png"> Dismiss</span>\n' +
+    '       </span>\n' +
+    '</span>');
+}]);
+})();
+
+(function(module) {
+try {
+  module = angular.module('7hack-snowcrash.templatesApp');
+} catch (e) {
+  module = angular.module('7hack-snowcrash.templatesApp', []);
+}
+module.run(['$templateCache', function($templateCache) {
   $templateCache.put('live-phone/live-phone.tpl.html',
-    '<!-- <div class="live-phone"  ng-show="ringing">\n' +
-    ' --> \n' +
     '<span class="">\n' +
     '       <span ng-show="contactImage"><img style="width: 50px; height: 50px;" src="data:image/png;base64, {{contactImage}}" /></span>\n' +
     '       <span class="phone-image"><img  style="width: 30px; height: 30px;" src="assets/phone.png"></span>\n' +
     '       <span>{{contactName}}</span>\n' +
     '       <span class="live-phone--separator">|</span>\n' +
     '       <span class="live-phone--actions">\n' +
-    '           <span><img style="width: 30px; height: 30px;" src="assets/green-dot.png"> Answer</span>\n' +
-    '           <span><img style="width: 30px; height: 30px;" src="assets/red-dot.png"> Silence</span>\n' +
+    '           <span><img style="width: 30px; height: 30px;" src="assets/red-dot.png"> Answer</span>\n' +
+    '           <span><img style="width: 30px; height: 30px;" src="assets/green-dot.png"> Silence</span>\n' +
     '       </span>\n' +
     '</span>\n' +
-    '  <!--  </div>\n' +
-    '   <span>{{contactNumber}}</span> \n' +
-    '</div>\n' +
-    ' -->');
+    '');
 }]);
 })();
 
@@ -41797,7 +41814,14 @@ try {
 }
 module.run(['$templateCache', function($templateCache) {
   $templateCache.put('toilet-break/toilet-break.tpl.html',
-    '');
+    '<span class="">\n' +
+    '       <span class="toilet-image"><img  style="width: 30px; height: 30px;" src="assets/toilet.gif"></span>\n' +
+    '       <span>{{message}}</span>\n' +
+    '       <span class="tiolet--separator">|</span>\n' +
+    '       <span class="tiolet--actions">\n' +
+    '           <span><img style="width: 30px; height: 30px;" src="assets/green-dot.png"> Dismiss</span>\n' +
+    '       </span>\n' +
+    '</span>');
 }]);
 })();
 
@@ -41884,11 +41908,12 @@ angular.module('7hack-snowcrash', [
     '7hack.events',
     '7hack.livePhone',
     '7hack.videoPlayer',
-    '7hack.alert'
+    '7hack.alert',
+    '7hack.events'
 ])
 
 .controller( 'AppCtrl', ['$window', '$http', 'EventService', function($window, $http, EventService) {
-    // EventService.cron();
+    EventService.cron();
 }]);
 
 // Bootstrap Angular with Sever Config
@@ -41896,7 +41921,7 @@ angular.element(document).ready(function () {
     angular.bootstrap(document, ['7hack-snowcrash']);
 });
 
-angular.module('7hack.alert', ['7hack.livePhone'])
+angular.module('7hack.alert', ['7hack.livePhone', '7hack.toiletBreak', '7hack.eventTickets'])
 
 .directive('alert', 
   [ 
@@ -41907,8 +41932,86 @@ angular.module('7hack.alert', ['7hack.livePhone'])
 
         controller: function($scope) {
             $scope.status = {
-                show: false
+                showBreak: false,
+                showPhone: false
             };
+        }
+    };
+}]);
+
+    // {
+    //     eventId: 123,
+    //     eventActions: ['answer']
+    //     requestedAction: 'answer',
+    //     device: ['tv', 'phone'],
+    //     status: 'pending' // pending / complete / ignored
+    // }
+    // 
+
+angular.module('7hack.eventTickets', ['7hack.events', '7hack.interaction'])
+
+.directive('eventTickets', 
+  [ 'EventService', 'InteractionService',
+  function(EventService, InteractionService) {  
+    return {
+        templateUrl: 'event-tickets/event-tickets.tpl.html',
+        restrict: 'E',
+        scope: {
+            status: '='
+        },
+
+        controller: function($scope) {
+            $scope.showEvent = false;
+
+            $scope.status.showEvent = $scope.showEvent;
+            $scope.message = "UpcomingEvent";
+
+            EventService.registerReceiver({
+                notify: function(event) {
+                    //var data = event.data;
+                    $scope.showEvent = true;
+                    $scope.status.showEvent = true;
+                    $scope.message = "Sweet offer for you!";
+                    console.log('Show EVent', event);
+                },
+                type: 'tickets'
+            });
+
+            InteractionService.registerReceiver({
+                notify: function(keyCode, data) {
+                    // Enter/Red Button Pressed, launch ticket event
+                        $scope.showEvent = false;
+                        $scope.status.showEvent = false;
+
+                        EventService.pushEvent(
+                            {
+                                eventId: "333",
+                                type: "tickets",
+                                devices: ["phone"],
+                                status: "pending",
+                                data: {
+                                    url: "http://7hack.de/"
+                                }
+                            }
+                        );
+                },
+                keys: [
+                    81
+                ]
+
+            });
+
+            InteractionService.registerReceiver({
+                notify: function(keyCode, data) {
+                    // Green Button Pressed, launch disable ticket
+                        $scope.showEvent = false;
+                        $scope.status.showEvent = false;
+                },
+                keys: [
+                    87
+                ]
+
+            });                 
         }
     };
 }]);
@@ -41937,6 +42040,38 @@ angular.module('7hack.events', [])
         }, 1000);
     };
 
+    service.preDefinedEvents = [
+        {
+            "id": 1,
+            "type": "break_start",
+            "start": 55,
+            "end": 61,
+            "devices": [
+                "tv",
+                "mobile"
+            ]
+        },
+        {   
+            "id": 2,
+            "type": "break_end",
+            "start": 115,
+            "end": 121,
+            "devices": [
+                "tv",
+                "mobile"
+            ]
+        },
+        {
+            "id": 3,
+            "type": "tickets",
+            "start": 13,
+            "end": 140,
+            "devices": [
+                "tv"
+            ]
+        }
+    ];
+
     service.processedEvents = [];
 
     service.requestEvents = function() {
@@ -41946,13 +42081,13 @@ angular.module('7hack.events', [])
                 deviceType: 'tv'
             }
         ).then(function (response) {
-            //console.log(response.data);
+            console.log(response.data);
 
             // Process imediate response events
             if (response.data.eventQueue && response.data.eventQueue.length) {
                 console.log('Should not be here');
                 response.data.eventQueue.forEach(function(event) {
-                    service.broadcastArray.forEach(function(receiver){
+                    service.broadcastArray.forEach(function(receiver){                        
                         if (receiver.type === event.type) {
                             receiver.notify(event);    
                         }
@@ -41960,20 +42095,30 @@ angular.module('7hack.events', [])
                 });
             }
 
+            // console.log(service.broadcastArray);
+
             // Process timed response events
-            if (response.data.preDefinedEvents && response.data.preDefinedEvents.length) {
+            if (service.preDefinedEvents && service.preDefinedEvents.length) {
+                // console.log('predefined events');
                 var serverTime = response.data.serverTime;
 
-                response.data.preDefinedEvents.forEach(function(event) {
-                    if (event.start <= serverTime && event.end <= serverTime) {
+                service.preDefinedEvents.forEach(function(event) {
+                    // console.log('start', event.start);
+                    // console.log('end', event.end);
+                    // console.log('server', serverTime);
+                    if (serverTime >= event.start && serverTime <= event.end) {
+                        // console.log('Checkign event id');
                         if (service.processedEvents.indexOf(event.eventId) < 0) {
                             service.processedEvents.push(event.eventId);
                             
-                            console.log('Processed Events', service.processedEvents);
+                            // console.log('Processed Events', service.processedEvents);
 
-                            console.log('Firing Event', event);
+                            // console.log('Firing Event', event);
 
                             service.broadcastArray.forEach(function(receiver){
+                                // console.log('receiverType', receiver.type);
+                                // console.log('eventType', event.type);
+
                                 if (receiver.type === event.type) {
                                     receiver.notify(event);    
                                 }
@@ -42003,9 +42148,10 @@ angular.module('7hack.interaction', [])
         Broadcast Example
         {
             notify: function(),
-            keys: []
+            keys: [r81, g87, y69, b82]
         }
     */
+   
     service.broadcastArray = [];
 
     service.registerReceiver = function(receiver) {
@@ -42014,16 +42160,17 @@ angular.module('7hack.interaction', [])
 
     service.notifyReceivers = function(keyCode, data) {
         service.broadcastArray.forEach(function(receiver) {
-            console.log(receiver.keys.indexOf(keyCode));
-            console.log(receiver.keys);
+            // console.log(receiver.keys.indexOf(keyCode));
+            // console.log(receiver.keys);
             if (receiver.keys.indexOf(keyCode) >= 0) {
-                console.log('Notifying reciever');
+                // console.log('Notifying reciever');
                 receiver.notify(keyCode, data);
             }
         });
     };
 
     $window.document.addEventListener("keyup", function(event) {
+        console.log(event.keyCode);
         service.notifyReceivers(event.keyCode);
     });
 
@@ -42049,54 +42196,71 @@ angular.module('7hack.livePhone', ['7hack.events', '7hack.interaction'])
         },
 
         controller: function($scope) {
-            $scope.ringing = true;
+            $scope.ringing = false;
             $scope.contactName = 'test';
             $scope.contactNumber = '';
             $scope.contactImage = '';
 
-            $scope.status.show = $scope.ringing;
+            $scope.status.showPhone = $scope.ringing;
 
             EventService.registerReceiver({
                 notify: function(event) {
+                    console.log('Event Received');
                     var data = event.data;
-                    console.log('Notifiying View', data);
+
                     $scope.ringing = (data.callState == "1") ? true: false;
                     $scope.contactName = data.contactName;
                     $scope.contactNumber = data.contactNumber;
                     $scope.contactImage = data.contactImage;
+
+                    $scope.status.showPhone = true;
                 },
-                messageType: 'phone'
+                type: 'phone'
             });
 
             InteractionService.registerReceiver({
                 notify: function(keyCode, data) {
-                    // Enter/Red Button Pressed, answer call
-                    if (keyCode === 113 || keycode === 13){
-
-                        $scope.ringing  = false;
-                        $scope.status.show = false;
-                    }
-
-                    // Control/Green Button pressed, hangup
-                    if (keyCode === 1 || keyCode === 2) {
-                        EventService.pushEvent(
-                            {
-                                eventId: 123,
-                                devices: ['phone'],
-                                status: 'pending', // pending / complete / ignored / received
-                                data: {
-                                    action: 'answer'
+                    if ($scope.ringing) {
+                        // Enter/Red Button Pressed, answer call
+                        if (keyCode === 81){
+                            EventService.pushEvent(
+                                {
+                                    eventId: 222,
+                                    type: 'phone',
+                                    devices: ['phone'],
+                                    status: 'pending', // pending / complete / ignored / received
+                                    data: {
+                                        action: 'answer'
+                                    }
                                 }
-                            }
-                        );
+                            );
 
-                        $scope.ringing  = false;
-                        $scope.status.show = false;
+                            $scope.ringing  = false;
+                            $scope.status.showPhone = false;
+                        }
+
+                        // Control/Green Button pressed, hangup
+                        if (keyCode === 87 ) {
+                            EventService.pushEvent(
+                                {
+                                    eventId: 222,
+                                    type: 'phone',
+                                    devices: ['phone'],
+                                    status: 'pending', // pending / complete / ignored / received
+                                    data: {
+                                        action: 'hangup'
+                                    }
+                                }
+                            );
+
+                            $scope.ringing  = false;
+                            $scope.status.showPhone = false;
+                        }
                     }
                 },
                 keys: [
-                    113,
-                    13
+                    81,
+                    87
                 ]
 
             });
@@ -42145,7 +42309,7 @@ angular.module('7hack.overlay', ['7hack.interaction'])
 angular.module('7hack.toiletBreak', ['7hack.events', '7hack.interaction'])
 
 .directive('toiletBreak', 
-  [ 'EventService',
+  [ 'EventService', 'InteractionService',
   function(EventService, InteractionService) {  
     return {
         templateUrl: 'toilet-break/toilet-break.tpl.html',
@@ -42155,59 +42319,44 @@ angular.module('7hack.toiletBreak', ['7hack.events', '7hack.interaction'])
         },
 
         controller: function($scope) {
-            $scope.ringing = true;
-            $scope.contactName = 'test';
-            $scope.contactNumber = '';
-            $scope.contactImage = '';
+            $scope.showBreak = false;
 
-            $scope.status.show = $scope.ringing;
+            $scope.status.showBreak = $scope.showBreak;
+            $scope.message = "Upcoming Add Break";
 
             EventService.registerReceiver({
                 notify: function(event) {
-                    var data = event.data;
-                    console.log('Notifiying View', data);
-                    $scope.ringing = (data.callState == "1") ? true: false;
-                    $scope.contactName = data.contactName;
-                    $scope.contactNumber = data.contactNumber;
-                    $scope.contactImage = data.contactImage;
+                    //var data = event.data;
+                    $scope.showBreak = true;
+                    $scope.status.showBreak = true;
+                    $scope.message = "Upcoming Add Break";
+                    // console.log('Notifiying View', event);
                 },
-                messageType: 'phone'
+                type: 'break_start'
+            });
+
+            EventService.registerReceiver({
+                notify: function(event) {
+                    //var data = event.data;
+                    $scope.showBreak = true;
+                    $scope.message = "Show starting again soon";
+
+                    //console.log('Notifiying View', data);
+                },
+                type: 'break_end'
             });
 
             InteractionService.registerReceiver({
                 notify: function(keyCode, data) {
                     // Enter/Red Button Pressed, answer call
-                    if (keyCode === 113 || keycode === 13){
-
-                        $scope.ringing  = false;
-                        $scope.status.show = false;
-                    }
-
-                    // Control/Green Button pressed, hangup
-                    if (keyCode === 1 || keyCode === 2) {
-                        EventService.pushEvent(
-                            {
-                                eventId: 123,
-                                devices: ['phone'],
-                                status: 'pending', // pending / complete / ignored / received
-                                data: {
-                                    action: 'answer'
-                                }
-                            }
-                        );
-
-                        $scope.ringing  = false;
-                        $scope.status.show = false;
-                    }
+                        $scope.showBreak = false;
+                        $scope.status.showBreak = false;
                 },
                 keys: [
-                    113,
-                    13
+                    87
                 ]
 
-            });
-
-            
+            });            
         }
     };
 }]);

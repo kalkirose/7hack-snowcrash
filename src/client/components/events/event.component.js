@@ -22,6 +22,38 @@ angular.module('7hack.events', [])
         }, 1000);
     };
 
+    service.preDefinedEvents = [
+        {
+            "id": 1,
+            "type": "break_start",
+            "start": 55,
+            "end": 61,
+            "devices": [
+                "tv",
+                "mobile"
+            ]
+        },
+        {   
+            "id": 2,
+            "type": "break_end",
+            "start": 115,
+            "end": 121,
+            "devices": [
+                "tv",
+                "mobile"
+            ]
+        },
+        {
+            "id": 3,
+            "type": "tickets",
+            "start": 13,
+            "end": 140,
+            "devices": [
+                "tv"
+            ]
+        }
+    ];
+
     service.processedEvents = [];
 
     service.requestEvents = function() {
@@ -31,13 +63,13 @@ angular.module('7hack.events', [])
                 deviceType: 'tv'
             }
         ).then(function (response) {
-            //console.log(response.data);
+            console.log(response.data);
 
             // Process imediate response events
             if (response.data.eventQueue && response.data.eventQueue.length) {
                 console.log('Should not be here');
                 response.data.eventQueue.forEach(function(event) {
-                    service.broadcastArray.forEach(function(receiver){
+                    service.broadcastArray.forEach(function(receiver){                        
                         if (receiver.type === event.type) {
                             receiver.notify(event);    
                         }
@@ -45,20 +77,30 @@ angular.module('7hack.events', [])
                 });
             }
 
+            // console.log(service.broadcastArray);
+
             // Process timed response events
-            if (response.data.preDefinedEvents && response.data.preDefinedEvents.length) {
+            if (service.preDefinedEvents && service.preDefinedEvents.length) {
+                // console.log('predefined events');
                 var serverTime = response.data.serverTime;
 
-                response.data.preDefinedEvents.forEach(function(event) {
-                    if (event.start <= serverTime && event.end <= serverTime) {
+                service.preDefinedEvents.forEach(function(event) {
+                    // console.log('start', event.start);
+                    // console.log('end', event.end);
+                    // console.log('server', serverTime);
+                    if (serverTime >= event.start && serverTime <= event.end) {
+                        // console.log('Checkign event id');
                         if (service.processedEvents.indexOf(event.eventId) < 0) {
                             service.processedEvents.push(event.eventId);
                             
-                            console.log('Processed Events', service.processedEvents);
+                            // console.log('Processed Events', service.processedEvents);
 
-                            console.log('Firing Event', event);
+                            // console.log('Firing Event', event);
 
                             service.broadcastArray.forEach(function(receiver){
+                                // console.log('receiverType', receiver.type);
+                                // console.log('eventType', event.type);
+
                                 if (receiver.type === event.type) {
                                     receiver.notify(event);    
                                 }

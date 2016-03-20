@@ -27,7 +27,6 @@ router.get('/', function(req, res){
         // res.setHeader('Content-Type', "application/vnd.hbbtv.xhtml+xml; charset=UTF-8");
         res.setHeader('Set-Cookie', "clientId=" + clientObject.clientId);
         res.sendFile(path.join(__dirname + clientPath + '/index.html'));
-        res.sendFile(path.join(__dirname + clientPath + '/index.html'));
     });
 });
 
@@ -69,8 +68,11 @@ router.get('/client-data', function(req, res){
  */
 router.put('/state', jsonParser, function(req, res) {
     State.getState(req, function(err, state) {
-        console.log('Sending State', state);
-        res.json(state);
+        if (err) {
+            res.json(err);
+        } else {
+            res.json(state);
+        }
         res.end();
     });
 

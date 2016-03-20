@@ -44,21 +44,22 @@ var State = {
         Events.getEvents(req, function(err, eventQueue) {
             if (err) {
                 callback(err);
+            } else {
+
+                response.eventQueue = eventQueue;  
+
+                Time.getTime(function(err, currentTime) {
+                    if (err) {
+                        response.serverTime = 'Error fetching server time';
+                    } else {
+                        response.serverTime = currentTime;
+                    }
+
+                    response.serverAddress = ip.address() + ':1337';
+
+                    callback(null, response);
+                });
             }
-
-            response.eventQueue = eventQueue;  
-
-            Time.getTime(function(err, currentTime) {
-                if (err) {
-                    response.serverTime = 'Error fetching server time';
-                } else {
-                    response.serverTime = currentTime;
-                }
-
-                response.serverAddress = ip.address() + ':1337';
-
-                callback(null, response);
-            });
         });        
     }
 };

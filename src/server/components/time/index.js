@@ -12,9 +12,6 @@ var Time = {
         timeElapsed = timeElapsed % 180;
         timeElapsed = Math.round(timeElapsed + offset);
 
-        console.log('Current Time', currentTime);
-        console.log('Time Elapsed', timeElapsed);
-
         callback(null, timeElapsed); 
     },
 
