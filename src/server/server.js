@@ -24,7 +24,7 @@ var baseTime = (new Date).getTime();
 
 router.get('/', function(req, res){
     Client.getClientData(req, function(err, clientInfo, clientObject){
-        // res.setHeader('Content-Type', "application/vnd.hbbtv.xhtml+xml; charset=UTF-8");
+        res.setHeader('Content-Type', "application/vnd.hbbtv.xhtml+xml; charset=UTF-8");
         res.setHeader('Set-Cookie', "clientId=" + clientObject.clientId);
         res.sendFile(path.join(__dirname + clientPath + '/index.html'));
         res.sendFile(path.join(__dirname + clientPath + '/index.html'));

@@ -41808,6 +41808,19 @@ try {
   module = angular.module('7hack-snowcrash.templatesApp', []);
 }
 module.run(['$templateCache', function($templateCache) {
+  $templateCache.put('video-player/video-player.tpl.html',
+    '<div class="" id="player"></div>\n' +
+    '');
+}]);
+})();
+
+(function(module) {
+try {
+  module = angular.module('7hack-snowcrash.templatesApp');
+} catch (e) {
+  module = angular.module('7hack-snowcrash.templatesApp', []);
+}
+module.run(['$templateCache', function($templateCache) {
   $templateCache.put('user-menu/user-menu.tpl.html',
     '<div id="user-settings" class="highlighted" ng-class="{paired: isPaired}">\n' +
     '\n' +
@@ -41860,19 +41873,6 @@ module.run(['$templateCache', function($templateCache) {
     '        </table>\n' +
     '    </div>\n' +
     '</div>');
-}]);
-})();
-
-(function(module) {
-try {
-  module = angular.module('7hack-snowcrash.templatesApp');
-} catch (e) {
-  module = angular.module('7hack-snowcrash.templatesApp', []);
-}
-module.run(['$templateCache', function($templateCache) {
-  $templateCache.put('video-player/video-player.tpl.html',
-    '<div class="" id="player"></div>\n' +
-    '');
 }]);
 })();
 
