@@ -1,0 +1,77 @@
+<html>
+<head>
+<style>
+body {
+	margin:0;
+	padding:0;
+	background: #0a62c3;
+	font-size:40px;
+	color:white;
+	font-family:sans-serif;
+    width: 320px;
+}
+
+h1 {
+	font-size:50px;
+	margin:0;
+}
+
+h2 {
+	font-size:30px;
+	margin:0;
+	margin-top:10px;
+	margin-bottom:10px;
+}
+
+#button {
+	margin:0;
+	margin-top:20px;
+	cursor:pointer;
+}
+
+textarea {
+	background:#8ec9fb;
+	color:white;
+	font-family:monospace;
+	font-size:20px;
+	width: 300px;
+	height:300px;
+}
+</style>
+<script>
+function prettyPrint() {
+    var ugly = document.getElementById('myTextArea').value;
+    var obj = JSON.parse(ugly);
+    var pretty = JSON.stringify(obj, undefined, 4);
+    document.getElementById('myTextArea').value = pretty;
+}
+
+window.onload = function() {
+	prettyPrint();
+}
+
+</script>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+</head>
+<body style="display: block; margin: 0 auto; width: 320px; text-align: center">
+
+    <span>
+        <center><img src="assets/fc_logo.png" width="120" />
+        <h2>Buy Tickets Now!</h2>
+        <h1>20% OFF</h1>
+        <h3 style="font-size: 25px">ADID: f712c9a7-8016-4dcb-bf5d-c31e1a674d38</h3>
+        <img id="button" src="assets/button.png" width="200" />
+        <br />
+
+        <textarea id="myTextArea" cols=50 rows=10>
+        {"clientId":"f13702ac-f128-497f-8e96-4553db853ad7","userAgent":"Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.87 Safari/537.36","clientIp":"::ffff:127.0.0.1","pairCode":"7127","_id":"8W9lII2JNebxH8C8","deviceData":{"pairCode":"7127","github":"madhavajay","uuid":"f712c9a7-8016-4dcb-bf5d-c31e1a674d38","deviceType":"phone","userAgent":"okhttp/2.4.0","clientIp":"::ffff:10.100.105.172","avatar":"https://avatars.githubusercontent.com/u/2882739?v=3"}}
+          
+        </textarea>
+
+        </div>
+        </center>
+    </span>
+</body>
+</html>

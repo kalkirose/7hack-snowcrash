@@ -9,6 +9,7 @@ var bodyParser = require('body-parser')
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var path = require('path');
+var fs = require('fs');
 
 var Pairing = require('./components/pairing');
 var Client = require('./components/client');
@@ -61,6 +62,24 @@ router.get('/client-data', function(req, res){
             res.end();
         });
     });
+});
+
+router.get('/sport', function(req, res) {
+    var output = fs.readFileSync(__dirname + clientPath + '/sport.html', 'utf8');
+    // Client.getClientData(req, function(err, clientInfo, clientObject) {
+    //      if (err) {
+    //         res.json(err);
+    //      } else {
+    //         output = output.replace('%replace-info%', JSON.stringify(clientInfo));
+    //         output = output.replace('%replace-object%', JSON.stringify(clientObject));
+    //         res.write(output);  
+    //      }
+
+    //      // res.end();
+    // });
+
+    res.write(output);  
+    res.end();
 });
 
 /** 

@@ -65,7 +65,7 @@ module.exports = {
             base_dir + '/index.html'
         ],
         test_html: [
-            base_dir + '/test.html'
+            base_dir + '/sport.html'
         ]
     },
 
