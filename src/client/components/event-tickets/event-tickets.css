@@ -1,3 +1,7 @@
+.event-ticket {
+    font-size: 24px;
+}
+
 .event-image {
     padding-left: 10px;
     padding-right: 10px;
@@ -11,4 +15,8 @@
 
 .event--actions span{
     padding: 0 5px;
+}
+
+.event--actions img{
+    /*padding: 0 5px;*/
 }

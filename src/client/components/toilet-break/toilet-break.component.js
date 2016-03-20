@@ -22,15 +22,17 @@ angular.module('7hack.toiletBreak', ['7hack.events', '7hack.interaction'])
         controller: function($scope) {
             $scope.showBreak = false;
 
-            $scope.status.showBreak = $scope.showBreak;
+            $scope.status.showBreak = false;
             $scope.message = "Upcoming Add Break";
 
+            $scope.type = '';
             EventService.registerReceiver({
                 notify: function(event) {
                     //var data = event.data;
                     $scope.showBreak = true;
                     $scope.status.showBreak = true;
-                    $scope.message = "Upcoming Add Break";
+                    $scope.type = 'apple';
+                    $scope.message = "Break Starting - Apple";
                     // console.log('Notifiying View', event);
                 },
                 type: 'break_start'
@@ -41,7 +43,8 @@ angular.module('7hack.toiletBreak', ['7hack.events', '7hack.interaction'])
                     //var data = event.data;
                     $scope.showBreak = true;
                     $scope.status.showBreak = true;
-                    $scope.message = "Show starting again soon";
+                    $scope.type = 'dominos';
+                    $scope.message = "Break Ending - Dominos";
 
                     //console.log('Notifiying View', data);
                 },

@@ -41751,13 +41751,13 @@ try {
 }
 module.run(['$templateCache', function($templateCache) {
   $templateCache.put('event-tickets/event-tickets.tpl.html',
-    '<span class="">\n' +
-    '       <span class="event-image"><img  style="width: 30px; height: 30px;" src="assets/toilet.gif"></span>\n' +
-    '       <span>{{message}}</span>\n' +
+    '<span class="event-ticket">\n' +
+    '       <span class="event-image"><img  style="width: 70px; height: 70px;" src="assets/ic_football.png"></span>\n' +
+    '       <span>FC Bayern Tickets: Save 20% Buy Now!</span>\n' +
     '       <span class="event--separator">|</span>\n' +
     '       <span class="event--actions">\n' +
-    '           <span><img style="width: 23px; height: 23px;" src="assets/red_new.png">Launch in App</span>\n' +
-    '           <span><img style="width: 30px; height: 30px;" src="assets/green_new.png">Dismiss</span>\n' +
+    '           <span><img style="width: 35px; height: 35px;" src="assets/red_new.png"><span>Launch in App</span></span>\n' +
+    '           <span><img style="width: 45px; height: 45px;" src="assets/green_new.png"><span>Dismiss</span></span>\n' +
     '       </span>\n' +
     '</span>');
 }]);
@@ -41777,30 +41777,11 @@ module.run(['$templateCache', function($templateCache) {
     '       <span>{{contactName}}</span>\n' +
     '       <span class="live-phone--separator">|</span>\n' +
     '       <span class="live-phone--actions">\n' +
-    '           <span><img style="width: 23px; height: 23px;" src="assets/red_new.png"> Answer</span>\n' +
-    '           <span><img style="width: 30px; height: 30px;" src="assets/green_new.png"> Silence</span>\n' +
+    '           <span><img style="width: 35px; height: 35px;" src="assets/red_new.png"><span>Answer</span></span>\n' +
+    '           <span><img style="width: 45px; height: 45px;" src="assets/green_new.png"><span>Silence</span></span>\n' +
     '       </span>\n' +
     '</span>\n' +
     '');
-}]);
-})();
-
-(function(module) {
-try {
-  module = angular.module('7hack-snowcrash.templatesApp');
-} catch (e) {
-  module = angular.module('7hack-snowcrash.templatesApp', []);
-}
-module.run(['$templateCache', function($templateCache) {
-  $templateCache.put('toilet-break/toilet-break.tpl.html',
-    '<span class="">\n' +
-    '       <span class="toilet-image"><img src="assets/ic_dominos.png"></span>\n' +
-    '       <span>{{message}}</span>\n' +
-    '       <span class="tiolet--separator">|</span>\n' +
-    '       <span class="tiolet--actions">\n' +
-    '           <span><img style="width: 30px; height: 30px;" src="assets/green_new.png"> Dismiss</span>\n' +
-    '       </span>\n' +
-    '</span>');
 }]);
 })();
 
@@ -41822,6 +41803,26 @@ module.run(['$templateCache', function($templateCache) {
     '        </div>\n' +
     '    </div>\n' +
     '</div>');
+}]);
+})();
+
+(function(module) {
+try {
+  module = angular.module('7hack-snowcrash.templatesApp');
+} catch (e) {
+  module = angular.module('7hack-snowcrash.templatesApp', []);
+}
+module.run(['$templateCache', function($templateCache) {
+  $templateCache.put('toilet-break/toilet-break.tpl.html',
+    '<span class="">\n' +
+    '       <span ng-show="type === \'dominos\'" class="toilet-image"><img src="assets/ic_dominos.png"></span>\n' +
+    '       <span ng-show="type === \'apple\'" class="toilet-image"><img src="assets/ic_apple.png"></span>\n' +
+    '       <span>{{message}}</span>\n' +
+    '       <span class="tiolet--separator">|</span>\n' +
+    '       <span class="tiolet--actions">\n' +
+    '           <span><img style="width: 30px; height: 30px;" src="assets/green_new.png"><span>Dismiss</span></span>\n' +
+    '       </span>\n' +
+    '</span>');
 }]);
 })();
 
@@ -41992,7 +41993,7 @@ angular.module('7hack.eventTickets', ['7hack.events', '7hack.interaction'])
                                 devices: ["phone"],
                                 status: "pending",
                                 data: {
-                                    url: "http://7hack.de/"
+                                    url: "sport"
                                 }
                             }
                         );
@@ -42333,15 +42334,17 @@ angular.module('7hack.toiletBreak', ['7hack.events', '7hack.interaction'])
         controller: function($scope) {
             $scope.showBreak = false;
 
-            $scope.status.showBreak = $scope.showBreak;
+            $scope.status.showBreak = false;
             $scope.message = "Upcoming Add Break";
 
+            $scope.type = '';
             EventService.registerReceiver({
                 notify: function(event) {
                     //var data = event.data;
                     $scope.showBreak = true;
                     $scope.status.showBreak = true;
-                    $scope.message = "Upcoming Add Break";
+                    $scope.type = 'apple';
+                    $scope.message = "Break Starting - Apple";
                     // console.log('Notifiying View', event);
                 },
                 type: 'break_start'
@@ -42352,7 +42355,8 @@ angular.module('7hack.toiletBreak', ['7hack.events', '7hack.interaction'])
                     //var data = event.data;
                     $scope.showBreak = true;
                     $scope.status.showBreak = true;
-                    $scope.message = "Show starting again soon";
+                    $scope.type = 'dominos';
+                    $scope.message = "Break Ending - Dominos";
 
                     //console.log('Notifiying View', data);
                 },

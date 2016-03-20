@@ -1,8 +1,9 @@
 <span class="">
-       <span class="toilet-image"><img src="assets/ic_dominos.png"></span>
+       <span ng-show="type === 'dominos'" class="toilet-image"><img src="assets/ic_dominos.png"></span>
+       <span ng-show="type === 'apple'" class="toilet-image"><img src="assets/ic_apple.png"></span>
        <span>{{message}}</span>
        <span class="tiolet--separator">|</span>
        <span class="tiolet--actions">
-           <span><img style="width: 30px; height: 30px;" src="assets/green_new.png"> Dismiss</span>
+           <span><img style="width: 30px; height: 30px;" src="assets/green_new.png"><span>Dismiss</span></span>
        </span>
 </span>

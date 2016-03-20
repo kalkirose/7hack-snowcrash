@@ -5,7 +5,7 @@
     text-align: center;
     overflow: none;
     color: white;
-    font-size: 24px;
+    font-size: 24px ! important;
     z-index: 10000;
 }
 

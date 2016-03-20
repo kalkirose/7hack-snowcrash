@@ -50,7 +50,7 @@ angular.module('7hack.eventTickets', ['7hack.events', '7hack.interaction'])
                                 devices: ["phone"],
                                 status: "pending",
                                 data: {
-                                    url: "http://7hack.de/"
+                                    url: "sport"
                                 }
                             }
                         );
