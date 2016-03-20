@@ -4512,6 +4512,7 @@ tbody.collapse.in {
   cursor: not-allowed;
   background-color: transparent;
   background-image: none;
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
 }
 
 .open>.dropdown-menu {
@@ -4542,7 +4543,7 @@ tbody.collapse.in {
 }
 
 .dropdown-backdrop {
-  position: absolute;
+  position: fixed;
   top: 0;
   right: 0;
   bottom: 0;
@@ -5314,7 +5315,7 @@ textarea.input-group-sm>.input-group-btn>.btn {
 
 .navbar-fixed-bottom,
 .navbar-fixed-top {
-  position: absolute;
+  position: fixed;
   right: 0;
   left: 0;
   z-index: 1030;
@@ -7253,7 +7254,7 @@ button.close {
 }
 
 .modal {
-  position: absolute;
+  position: fixed;
   top: 0;
   right: 0;
   bottom: 0;
@@ -7307,7 +7308,7 @@ button.close {
 }
 
 .modal-backdrop {
-  position: absolute;
+  position: fixed;
   top: 0;
   right: 0;
   bottom: 0;
@@ -7789,6 +7790,7 @@ button.close {
   background-image: -o-linear-gradient(left,rgba(0,0,0,.5) 0,rgba(0,0,0,.0001) 100%);
   background-image: -webkit-gradient(linear,left top,right top,from(rgba(0,0,0,.5)),to(rgba(0,0,0,.0001)));
   background-image: linear-gradient(to right,rgba(0,0,0,.5) 0,rgba(0,0,0,.0001) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#80000000', endColorstr='#00000000', GradientType=1);
   background-repeat: repeat-x;
 }
 
@@ -7799,6 +7801,7 @@ button.close {
   background-image: -o-linear-gradient(left,rgba(0,0,0,.0001) 0,rgba(0,0,0,.5) 100%);
   background-image: -webkit-gradient(linear,left top,right top,from(rgba(0,0,0,.0001)),to(rgba(0,0,0,.5)));
   background-image: linear-gradient(to right,rgba(0,0,0,.0001) 0,rgba(0,0,0,.5) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00000000', endColorstr='#80000000', GradientType=1);
   background-repeat: repeat-x;
 }
 
@@ -8025,7 +8028,7 @@ button.close {
 }
 
 .affix {
-  position: absolute;
+  position: fixed;
 }
 
 @-ms-viewport {
@@ -8286,7 +8289,6 @@ button.close {
 }
 
 /*# sourceMappingURL=bootstrap.min.css.map */
-
 .alert-container {
   position: absolute;
   bottom: 30px;
@@ -8323,7 +8325,15 @@ button.close {
     transform: scale3d(1, 1, 1);
   }
 }
-
+.hbbtv-viewport {
+  width: 1280px;
+  height: 720px;
+  color: transparent;
+  position: relative;
+  overflow: hidden;
+  font-size: 50px;
+  color: white;
+}
 .phone-image {
   padding-left: 10px;
   padding-right: 10px;
@@ -8332,6 +8342,7 @@ button.close {
 .live-phone--separator {
   padding: 0 20px;
 }
+
 
 #menu-overlay {
   padding-top: 100px;
@@ -8345,7 +8356,6 @@ button.close {
 #user-settings .profile-img {
   border-radius: 50%;
 }
-
 .jw-icon {
   font-family: 'jw-icons';
   -webkit-font-smoothing: antialiased;
@@ -8672,7 +8682,6 @@ button.close {
 .jw-skin-beelden .jw-toggle.jw-off {
   color: #7d7d7d;
 }
-
 .jw-icon {
   font-family: 'jw-icons';
   -webkit-font-smoothing: antialiased;
@@ -8941,7 +8950,6 @@ button.close {
 .jw-skin-bekle .jw-menu {
   bottom: .2em;
 }
-
 .jw-icon {
   font-family: 'jw-icons';
   -webkit-font-smoothing: antialiased;
@@ -9213,7 +9221,6 @@ button.close {
 .jw-skin-five .jw-dock-button {
   border-radius: 0;
 }
-
 .jw-icon {
   font-family: 'jw-icons';
   -webkit-font-smoothing: antialiased;
@@ -9450,7 +9457,6 @@ button.close {
 .jw-skin-glow .jw-slider-vertical .jw-progress {
   width: .4em;
 }
-
 .jw-icon {
   font-family: 'jw-icons';
   -webkit-font-smoothing: antialiased;
@@ -9725,7 +9731,6 @@ button.close {
   border-radius: 1em;
   padding: .25em 1em;
 }
-
 .jw-icon {
   font-family: 'jw-icons';
   -webkit-font-smoothing: antialiased;
@@ -10000,7 +10005,6 @@ button.close {
 .jw-skin-seven.jw-flag-touch .jw-controlbar .jw-icon-playlist:before {
   padding: 0 .225em;
 }
-
 .jw-icon {
   font-family: 'jw-icons';
   -webkit-font-smoothing: antialiased;
@@ -10356,7 +10360,6 @@ button.close {
   background: linear-gradient(0deg,rgba(73,73,75,0.87) 0,#454547 3%,#3f3f41 7%,#3e3e40 10%,#3a3a3d 59%,#343437 97%,rgba(52,52,55,0.87) 100%);
   background-size: 100% 100%;
 }
-
 .jw-icon {
   font-family: 'jw-icons';
   -webkit-font-smoothing: antialiased;
@@ -10624,7 +10627,6 @@ button.close {
 .jw-skin-stormtrooper .jw-icon-hd.jw-off:before {
   content: "\e609";
 }
-
 .jw-icon {
   font-family: 'jw-icons';
   -webkit-font-smoothing: antialiased;
@@ -10901,61 +10903,4 @@ button.close {
 
 .jw-skin-vapor.jw-flag-audio-player .jw-controlbar {
   background: rgba(0,0,0,0.5);
-}
-.alert-container {
-  position: absolute;
-  bottom: 30px;
-  width: 100%;
-  text-align: center;
-  overflow: none;
-  color: white;
-  font-size: 14px;
-}
-
-.alert-pulse {
-  display: inline-block;
-  background-color: rgba(0,0,0,0.8);
-  padding: 10px;
-  border-radius: 5px;
-}
-
-/*
-.pulse {
-    animation: pulse 1s infinite;
-    animation-duration: 1s;
-    animation-play-state: running;
-}
-
-@keyframes pulse {
-    0% {
-        transform: scale3d(1, 1, 1);
-    }
-    50% {
-        transform: scale3d(1.25, 1.25, 1.25);
-    }
-    100% {
-        transform: scale3d(1, 1, 1);
-    }
-}*/
-.phone-image {
-  padding-left: 10px;
-  padding-right: 10px;
-}
-
-.live-phone--separator {
-  padding: 0 20px;
-}
-
-
-#menu-overlay {
-  padding-top: 100px;
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  z-index: 100;
-  background-color: rgba(0,0,0,0.8);
-}
-
-#user-settings .profile-img {
-  border-radius: 50%;
 }
