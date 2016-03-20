@@ -1,0 +1,9 @@
+.hbbtv-viewport {
+    width: 1280px; 
+    height: 720px;
+    color: transparent;
+    position: relative;
+    overflow: hidden;
+    font-size: 50px;
+    color: white;
+}
