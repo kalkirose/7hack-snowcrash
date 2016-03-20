@@ -59,7 +59,7 @@ module.exports = {
             base_dir + '/components/**/*.tpl.html'
         ],
         css: [
-            base_dir + '/**/*.css'
+            base_dir + '/components/**/*.css'
         ],
         index_html: [
             base_dir + '/index.html'
@@ -74,15 +74,12 @@ module.exports = {
      */
     vendor_files: {
         js: [
-            'src/client/lib/jwplayer/jwplayer.js',
-            'src/client/lib/toaster/jquery.toaster.js',
-            'node_modules/angular/angular.js',
+            'node_modules/angular/angular.min.js',
             'node_modules/moment/moment.js',
-            'node_modules/bootstrap/dist/js/bootstrap.min.js',
-            'node_modules/socket.io-client/socket.io.js'
+            'src/client/lib/bootstrap/js/bootstrap.min.js'
         ],
         css: [
-            'node_modules/bootstrap/dist/css/bootstrap.min.css'
+            'src/client/lib/bootstrap/css/bootstrap.css'
         ],
         assets: [
             'client/lib/jwplayer/jwplayer.flash.swf'

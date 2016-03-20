@@ -2,7 +2,7 @@ angular.module('7hack.userMenu', [])
 .directive('userMenu', ['UserMenuService', function(UserMenuService) {
     return {
         templateUrl: 'user-menu/user-menu.tpl.html',
-        restrict: 'E',
+        restrict: 'EAC',
 
         controller: function($scope) {
             $scope.isPaired = false;
